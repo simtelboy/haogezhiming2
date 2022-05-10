@@ -1,23 +1,23 @@
 {
-  "name": "Heroku-v2ray",
-  "description": "将v2ray部署在Heroku上",
+  "name": "haogezhiming2",
+  "description": "haogezhiming2",
   "keywords": [
-    "v2ray VMess VLESS"
+    "haoge zhiming"
   ],
   "env": {
     "PROTOCOL": {
       "description": "协议VMess或VLESS，请填小写的vmess或vless",
-      "value": "vmess",
+      "value": "vless",
       "required": true
     },
     "UUID": {
       "description": "用户的主ID",
-      "value": "",
-      "required": false
+      "value": "cdbd3f06-79f5-4083-9006-b7e57308dd75",
+      "required": true
     },
     "WS_PATH": {
       "description": "websocket路径",
-      "value": "/ray",
+      "value": "/haoge",
       "required": true
     }
   },
