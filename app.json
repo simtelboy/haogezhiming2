@@ -1,28 +1,28 @@
 {
-  "name": "haogezhiming2",
-  "description": "豪哥之名的第二版本",
+  "name": "Heroku-v2ray",
+  "description": "将v2ray部署在Heroku上",
   "keywords": [
-    "豪哥之名"
+    "v2ray VMess VLESS"
   ],
   "env": {
     "PROTOCOL": {
-      "description": "协议VM*ss或VL*SS，请填小写的vm*ss或vl*ss",
-      "value": "vless",
+      "description": "协议VMess或VLESS，请填小写的vmess或vless",
+      "value": "vmess",
       "required": true
     },
     "UUID": {
       "description": "用户的主ID",
-      "value": "cdbd3f06-79f5-4083-9006-b7e57308dd75",
+      "value": "",
       "required": false
     },
     "WS_PATH": {
       "description": "websocket路径",
-      "value": "/haoge",
+      "value": "/ray",
       "required": true
     }
   },
-  "website": "https://github.com/simtelboy/haogezhiming2",
-  "repository": "https://github.com/simtelboy/haogezhiming2",
+  "website": "https://github.com/DaoChen6/Heroku-v2ray",
+  "repository": "https://github.com/DaoChen6/Heroku-v2ray",
   "stack": "container",
   "features": [
     "runtime-dyno-metadata"
