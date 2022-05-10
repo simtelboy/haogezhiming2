@@ -1,9 +1,4 @@
-## 注意事项
-1）5月8日晚，CloudFlare Workers 的业务域名 Workers.dev 被防火长城 DNS 污染、SNI阻断。
 
-2）CloudFlare Workers，可自定义workers域名，教程已更新至博客`ifts.ml`；经过添加自定义域名，更换Host和SNI后已可正常使用。
-
-3）接入点可以直接使用我的自选IP域名`uicdn.cf`，每30分钟更新一次。
 
 ## v2ray-heroku
 [![](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/simtelboy/haogezhiming2.git)
