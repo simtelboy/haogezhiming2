@@ -17,15 +17,15 @@
 
 请求`/`，返回3D元素周期表
 
-![image](https://cdn.jsdelivr.net/gh/DaoChen6/Heroku-v2ray/doc/1.png)
+![image](https://cdn.jsdelivr.net/gh/simtelboy/Heroku-v2ray/doc/1.png)
 
 请求`/speedtest/`，html5-speedtest测速页面
 
-![image](https://cdn.jsdelivr.net/gh/DaoChen6/Heroku-v2ray/doc/2.png)
+![image](https://cdn.jsdelivr.net/gh/simtelboy/Heroku-v2ray/doc/2.png)
 
 请求`/test/`，文件下载速度测试
 
-![image](https://cdn.jsdelivr.net/gh/DaoChen6/Heroku-v2ray/doc/3.png)
+![image](https://cdn.jsdelivr.net/gh/simtelboy/Heroku-v2ray/doc/3.png)
 
 请求`/ray`（可配置）v2ray websocket路径
 
