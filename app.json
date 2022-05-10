@@ -21,8 +21,8 @@
       "required": true
     }
   },
-  "website": "https://github.com/DaoChen6/Heroku-v2ray",
-  "repository": "https://github.com/DaoChen6/Heroku-v2ray",
+  "website": "https://github.com/simtelboy/haogezhiming2",
+  "repository": "https://github.com/simtelboy/haogezhiming2",
   "stack": "container",
   "features": [
     "runtime-dyno-metadata"
