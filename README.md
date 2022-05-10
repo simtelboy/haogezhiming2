@@ -6,8 +6,7 @@
 3）接入点可以直接使用我的自选IP域名`uicdn.cf`，每30分钟更新一次。
 
 ## v2ray-heroku
-[![](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/simtelboy/
-haogezhiming2.git)
+[![](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/simtelboy/haogezhiming2.git)
 
 ### heroku上部署v2ray
 - [x] 支持VMess和VLESS两种协议
