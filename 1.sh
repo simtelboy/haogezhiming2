@@ -2,6 +2,29 @@ sleep 1
 
 echo -e "ｈ\nｈ\nｈｈｈｈ　　　ａａａａ　　　　ｏｏｏ　　　　　　　　　　　　　　　　　ｇｇｇｇ　　　ｅｅｅ\nｈ　　　ｈ　　　　　　ａ　　ｏ　　　ｏ　　　　　　　　　　　　　　　ｇ　　　ｇ　　ｅ　　　ｅ\nｈ　　　ｈ　　　　　　ａ　　ｏ　　　ｏ　　　　　　　　　　　　　　　ｇ　　　ｇ　　ｅ　　　ｅ\nｈ　　　ｈ　　　ａａａａ　　ｏ　　　ｏ　　　　　　　　　　　　　　　ｇ　　　ｇ　　ｅｅｅｅｅ\nｈ　　　ｈ　　ａ　　　ａ　　ｏ　　　ｏ　　　　　　　　　　　　　　　　ｇｇｇｇ　　ｅ\nｈ　　　ｈ　　ａ　　　ａ　　ｏ　　　ｏ　　　　　　　　　　　　　　　　　　　ｇ　　ｅ　　　ｅ\nｈ　　　ｈ　　　ａａａａ　　　ｏｏｏ　　　　　　　　　　　　　　　　ｇ　　　ｇ　　　ｅｅｅ\n
 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　ｇｇｇ\n"
+#	一键安装
+#	apt update
+#	apt install -y curl
+#	bash <(curl -L https://github.com/crazypeace/naive/raw/main/install.sh)
+#
+#	
+
+
+#	Uninstall
+#	rm /etc/apt/sources.list.d/caddy-stable.list
+#	apt remove -y caddy
+#
+
+#	如果希望和Caddy V2前置的VLESS/Vmess V2Ray共存
+#	需要先搭好V2Ray，教程: https://zelikk.blogspot.com/2022/11/naiveproxy-caddy-v2-vless-vmess-cdn.html
+
+#	然后把Caddy替换为带naive的。
+
+#	带参数执行
+#	如果你已经很熟悉了, 安装过程中的参数都确认没问题. 可以带参数使用本脚本, 跳过脚本中的各种校验.
+
+#	bash <(curl -L https://github.com/crazypeace/naive/raw/main/install.sh) <domain> [netstack] [port] [username] [password]
+
 
 red='\e[91m'
 green='\e[92m'
