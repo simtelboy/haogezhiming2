@@ -5,7 +5,7 @@ echo -e "ｈ\nｈ\nｈｈｈｈ　　　ａａａａ　　　　ｏｏｏ　　�
 #	一键安装
 #	apt update
 #	apt install -y curl
-#	bash <(curl -L https://github.com/crazypeace/naive/raw/main/install.sh)
+#	bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/1.sh)
 #
 #	
 
