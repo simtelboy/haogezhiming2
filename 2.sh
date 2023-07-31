@@ -54,7 +54,7 @@ pause() {
 #说明
 echo
 echo -e "$yellow此脚本仅兼容于Debian 10+系统. 如果你的系统不符合,请Ctrl+C退出脚本$none"
-echo "本脚本支持带参数执行, 在参数中输入域名, 网络栈, 端口, 用户名, 密码.例:XXX.sh domain.com 4 443 haoge 1234 "
+echo "本脚本支持带参数执行, 在参数中输入域名, 网络栈, 端口, 用户名, 密码.例:XXX.sh domain.com 4 443 haoge 1234 fakeweb "
 echo "----------------------------------------------------------------"
 
 
@@ -100,12 +100,15 @@ if [ $# -ge 1 ]; then
 		#默认与用户名相等
 		naive_pass=$naive_user
 	fi
-
+ 	#第六个参数是伪装网址
+	naive_fakeweb=${6}
+ 	
 	echo -e "域名:${naive_domain}"
 	echo -e "网域栈:${netstack}"
 	echo -e "端口:${naive_port}"
 	echo -e "用户名:${naive_user}"
 	echo -e "密码:${naive_pass}"
+ 	echo -e "伪装:${naive_fakeweb}"
 fi
 
 
@@ -279,7 +282,20 @@ if [[ -z $naive_pass ]]; then
     done
 fi
 
-
+# 伪装网址
+if [[ -z $naive_fakeweb ]]; then
+    while :; do
+        echo
+        echo -e "请输入一个 ${magenta}正确的域名${none} Input your domain"
+        read -p "(例如: bing.com): " naive_fakeweb
+        [ -z "$naive_fakeweb" ] && error && continue
+        echo
+        echo
+        echo -e "$yellow 你的伪装网址 = $cyan$naive_fakeweb$none"
+        echo "----------------------------------------------------------------"
+        break
+    done
+fi
 
 
 # 修改Caddyfile
@@ -348,7 +364,7 @@ route {\n\
 #   hide_via\n\
 #   probe_resistance\n\
 #  }\n\
- reverse_proxy  https://demo.cloudreve.org  { #伪装网址\n\
+ reverse_proxy  https://${naive_fakeweb}  { #伪装网址\n\
    header_up  Host  {upstream_hostport}\n\
    header_up  X-Forwarded-Host  {host}\n\
   }\n\
