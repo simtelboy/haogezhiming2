@@ -292,6 +292,22 @@ if [ ! -f /etc/caddy/Caddyfile ]; then
 fi
 chmod +x /etc/caddy/Caddyfile
 
+cat > /etc/caddy/Caddyfile << EOF
+:80 {
+	# Set this path to your site's directory.
+	root * /usr/share/caddy
+
+	# Enable the static file server.
+	file_server
+
+	# Another common task is to set up a reverse proxy:
+	# reverse_proxy localhost:8080
+
+	# Or serve a PHP site through php-fpm:
+	# php_fastcgi localhost:9000
+}
+EOF
+
 begin_line=$(awk "/_naive_config_begin_/{print NR}" /etc/caddy/Caddyfile)
 end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
 if [[ -n $begin_line && -n $end_line ]]; then
