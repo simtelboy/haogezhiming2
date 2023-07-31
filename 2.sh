@@ -2,7 +2,7 @@
 #	一键安装
 #	apt update
 #	apt install -y curl
-#	bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/1.sh)
+#	bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
 #
 #	
 
