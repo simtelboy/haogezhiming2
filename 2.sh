@@ -287,7 +287,7 @@ echo
 echo -e "$yellow修改Caddyfile$none"
 echo "----------------------------------------------------------------"
 
- mkdir /etc/caddy
+mkdir /etc/caddy
 if [ ! -f /etc/caddy/Caddyfile ]; then
   touch /etc/caddy/Caddyfile
 fi
