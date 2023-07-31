@@ -290,7 +290,7 @@ echo "----------------------------------------------------------------"
 if [ ! -f /etc/caddy/Caddyfile ]; then
   touch /etc/caddy/Caddyfile
 fi
-
+chmod +x /etc/caddy/Caddyfile
 
 begin_line=$(awk "/_naive_config_begin_/{print NR}" /etc/caddy/Caddyfile)
 end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
