@@ -23,14 +23,13 @@
 #	service caddy stop && systemctl disable caddy && sudo userdel caddy && sudo groupdel caddy && rm -r /etc/caddy && rm /etc/systemd/system/caddy.service && rm /usr/bin/caddy && rm /etc/apt/sources.list.d/caddy-stable.list && apt remove -y caddy
 
 #	如果希望和Caddy V2前置的VLESS/Vmess V2Ray共存
-#	需要先搭好V2Ray，教程: https://zelikk.blogspot.com/2022/11/naiveproxy-caddy-v2-vless-vmess-cdn.html
-
+#	需要先搭好V2Ray
 #	然后把Caddy替换为带naive的。
 
 #	带参数执行
 #	如果你已经很熟悉了, 安装过程中的参数都确认没问题. 可以带参数使用本脚本, 跳过脚本中的各种校验.
 
-#	bash <(curl -L https://github.com/crazypeace/naive/raw/main/install.sh) <domain> [netstack] [port] [username] [password]
+#	bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh) <domain> [netstack] [port] [username] [password] [fakeweb]
 
 
 sleep 1
