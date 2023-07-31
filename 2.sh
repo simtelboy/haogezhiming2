@@ -8,7 +8,7 @@
 
 
 
-#	Uninstall
+#	反安装执行以下语句
 #	service caddy stop
 #	systemctl disable caddy
 #	sudo userdel caddy
@@ -16,8 +16,7 @@
 #	rm -r /etc/caddy
 #	rm /etc/systemd/system/caddy.service
 #	rm /usr/bin/caddy
-#	rm /etc/apt/sources.list.d/caddy-stable.list
-#	apt remove -y caddy
+
 #	
 #	一条语句:
 #	service caddy stop && systemctl disable caddy && sudo userdel caddy && sudo groupdel caddy && rm -r /etc/caddy && rm /etc/systemd/system/caddy.service && rm /usr/bin/caddy && rm /etc/apt/sources.list.d/caddy-stable.list && apt remove -y caddy
