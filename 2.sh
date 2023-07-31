@@ -3,8 +3,9 @@
 #	apt update
 #	apt install -y curl
 #	bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
-#
 #	
+#	一条语句安装:	apt update -y && apt install -y curl && bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
+
 
 
 #	Uninstall
