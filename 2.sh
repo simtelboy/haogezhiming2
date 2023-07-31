@@ -295,7 +295,7 @@ fi
 if [[ -z $naive_fakeweb ]]; then
     while :; do
         echo
-        echo -e "请输入一个 ${magenta}正确的域名${none} Input your domain"
+        echo -e "请输入一个 ${magenta}正确的域名作为伪装网址${none} Input your domain"
         read -p "(例如: bing.com): " naive_fakeweb
         [ -z "$naive_fakeweb" ] && error && continue
         echo
