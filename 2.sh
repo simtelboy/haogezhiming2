@@ -61,7 +61,7 @@ pause() {
 #说明
 echo
 echo -e "$yellow此脚本仅兼容于Debian 10+系统. 如果你的系统不符合,请Ctrl+C退出脚本$none"
-echo "本脚本支持带参数执行, 在参数中输入域名, 网络栈, 端口, 用户名, 密码.例:XXX.sh domain.com 4 443 haoge 1234 fakeweb "
+echo "本脚本支持带参数执行, 在参数中输入域名, 网络栈, 端口, 用户名, 密码.例:bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh) domain.com 4 443 haoge 1234 fakeweb "
 echo "----------------------------------------------------------------"
 
 
