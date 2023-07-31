@@ -9,9 +9,18 @@
 
 
 #	Uninstall
+#	service caddy stop
+#	systemctl disable caddy
+#	sudo userdel caddy
+#	sudo groupdel caddy
+#	rm -r /etc/caddy
+#	rm /etc/systemd/system/caddy.service
+#	rm /usr/bin/caddy
 #	rm /etc/apt/sources.list.d/caddy-stable.list
 #	apt remove -y caddy
-#
+#	
+#	一条语句:
+#	service caddy stop && systemctl disable caddy && sudo userdel caddy && sudo groupdel caddy && rm -r /etc/caddy && rm /etc/systemd/system/caddy.service && rm /usr/bin/caddy && rm /etc/apt/sources.list.d/caddy-stable.list && apt remove -y caddy
 
 #	如果希望和Caddy V2前置的VLESS/Vmess V2Ray共存
 #	需要先搭好V2Ray，教程: https://zelikk.blogspot.com/2022/11/naiveproxy-caddy-v2-vless-vmess-cdn.html
