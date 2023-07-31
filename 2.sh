@@ -287,7 +287,10 @@ echo
 echo -e "$yellow修改Caddyfile$none"
 echo "----------------------------------------------------------------"
 
-mkdir /etc/caddy
+if [ ! -f /etc/caddy/Caddyfile ]; then
+  touch /etc/caddy/Caddyfile
+fi
+
 
 begin_line=$(awk "/_naive_config_begin_/{print NR}" /etc/caddy/Caddyfile)
 end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
