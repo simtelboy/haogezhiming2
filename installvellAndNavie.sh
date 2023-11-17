@@ -40,7 +40,7 @@ echo "----------------------------------------------------------------"
 #    apt install -y curl
 
 deptV2ray(){
-    bash <(curl -L https://github.com/simtelboy/v2ray_wss/blob/main/install.sh)
+    bash <(curl -L https://github.com/simtelboy/v2ray_wss/raw/main/install.sh)
 }
 
 deptNaive(){
