@@ -36,6 +36,21 @@ echo -e "本脚本开头有详尽注,查看脚本整体思路和关键命令, �
 echo "本脚本不支持带参数执行"
 echo "----------------------------------------------------------------"
 
+#    apt update
+#    apt install -y curl
+
+deptV2ray(){
+    bash <(curl -L https://github.com/simtelboy/v2ray_wss/blob/main/install.sh)
+}
+
+deptNaive(){
+    bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
+}
+
+deptAnd(){
+    deptV2ray
+    deptNaive
+}
 
 invalid_choice=true
 
@@ -50,24 +65,17 @@ while $invalid_choice; do
     case $choice in
         1)
             echo "只安装v2ray+vless"
-            apt update
-            apt install -y curl
-            bash <(curl -L https://github.com/simtelboy/v2ray_wss/blob/main/install.sh)
+            deptV2ray
             invalid_choice=false
             ;;
         2)
             echo "只安装naive"
-            	apt update
-            	apt install -y curl
-            	bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
+            deptNaive
             invalid_choice=false
             ;;
         3)
             echo "安装v2ray与naive共存版"
-            apt update
-            apt install -y curl
-            bash <(curl -L https://github.com/simtelboy/v2ray_wss/blob/main/install.sh)
-            bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
+            deptAnd
             invalid_choice=false
             ;;
         *)
