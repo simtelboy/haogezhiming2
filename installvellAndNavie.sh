@@ -1,3 +1,7 @@
+#            apt update
+#            apt install -y curl
+#            bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/installvellAndNavie.sh)
+
 # 等待1秒, 避免curl下载脚本的打印与脚本本身的显示冲突, 吃掉了提示用户按回车继续的信息
 clear
 sleep 1
