@@ -311,12 +311,23 @@ echo
 echo -e "$yellow修改Caddyfile$none"
 echo "----------------------------------------------------------------"
 
+
 if [ ! -d /etc/caddy ]; then
   mkdir /etc/caddy
 fi
 
 if [ ! -f /etc/caddy/Caddyfile ]; then
+  config_code="
+    reverse_proxy  https://${naive_fakeweb}  { #伪装网址\n\
+    header_up  Host  {upstream_hostport}\n\
+    header_up  X-Forwarded-Host  {host}\n\		
+  }\n"
   touch /etc/caddy/Caddyfile
+else
+  config_code="
+   file_server {\n\
+  	root /var/www/html\n\
+  }\n"
 fi
 chmod +x /etc/caddy/Caddyfile
 
@@ -379,10 +390,10 @@ route {\n\
 #   hide_via\n\
 #   probe_resistance\n\
 #  }\n\
- reverse_proxy  https://${naive_fakeweb}  { #伪装网址\n\
-   header_up  Host  {upstream_hostport}\n\
-#   header_up  X-Forwarded-Host  {host}\n\		#这行似乎是多余的
-  }\n\
+
+ ${config_code}
+
+  
 }\n\
 # _naive_config_end_" /etc/caddy/Caddyfile
 
