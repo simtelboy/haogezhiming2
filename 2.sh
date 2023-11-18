@@ -409,8 +409,11 @@ fi
 
 chmod +x /etc/systemd/system/caddy.service
 
+if ! getent group caddy >/dev/null; then
 groupadd --system caddy
+fi
 
+if ! getent passwd caddy >/dev/null; then
 useradd --system \
     --gid caddy \
     --create-home \
@@ -418,6 +421,7 @@ useradd --system \
     --shell /usr/sbin/nologin \
     --comment "Caddy web server" \
     caddy
+fi
 
 # 启动NaïveProxy服务端(Caddy)
 echo
