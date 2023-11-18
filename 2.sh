@@ -314,7 +314,9 @@ if [ ! -f /etc/caddy/Caddyfile ]; then
 fi
 chmod +x /etc/caddy/Caddyfile
 
-cat > /etc/caddy/Caddyfile << EOF
+
+#------------- 	原版的新建caddyfile,注释掉,改为在顶部加入配置---------------------
+#cat > /etc/caddy/Caddyfile << EOF	 	原版的新建caddyfile,注释掉,改为在顶部加入配置-
 # The Caddyfile is an easy way to configure your Caddy web server.
 #
 # Unless the file starts with a global options block, the first
@@ -341,7 +343,9 @@ cat > /etc/caddy/Caddyfile << EOF
 
 # Refer to the Caddy docs for more information:
 # https://caddyserver.com/docs/caddyfile
-EOF
+#EOF	 	原版的新建caddyfile,注释掉,改为在顶部加入配置-
+#-----------原来的新建配置结束-------
+
 
 begin_line=$(awk "/_naive_config_begin_/{print NR}" /etc/caddy/Caddyfile)
 end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
