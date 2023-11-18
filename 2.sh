@@ -382,6 +382,7 @@ route {\n\
 
 
 #/etc/systemd/system/
+if [[ ! -f /etc/systemd/system/caddy.service ]]; then
 cat > /etc/systemd/system/caddy.service << EOF
 [Unit]
 Description=Caddy
@@ -404,7 +405,7 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE
 [Install]
 WantedBy=multi-user.target
 EOF
-
+fi
 
 chmod +x /etc/systemd/system/caddy.service
 
