@@ -6,8 +6,8 @@
 #	
 #	一条语句安装:	apt update -y && apt install -y curl && bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
 
-
-
+#
+#
 #	反安装执行以下语句
 #	service caddy stop
 #	systemctl disable caddy
@@ -21,8 +21,11 @@
 #	service caddy stop && systemctl disable caddy && sudo userdel caddy && sudo groupdel caddy && rm -r /etc/caddy && rm /etc/systemd/system/caddy.service && rm /usr/bin/caddy && rm /etc/apt/sources.list.d/caddy-stable.list && apt remove -y caddy
 
 #	如果希望和Caddy V2前置的VLESS/Vmess V2Ray共存
-#	需要先搭好V2Ray
-#	然后把Caddy替换为带naive的。
+#	步骤1:	
+#	bash <(curl -L https://github.com/simtelboy/v2ray_wss/raw/main/install.sh)
+#	步骤2:
+#	bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
+#	在步骤一,把cf云朵点灰(也就是只dns),稍后再点回彩色.
 
 #	带参数执行
 #	如果你已经很熟悉了, 安装过程中的参数都确认没问题. 可以带参数使用本脚本, 跳过脚本中的各种校验.
