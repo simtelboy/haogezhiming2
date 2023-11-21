@@ -379,7 +379,7 @@ sed -i "1i # _naive_config_begin_\n\
   }\n\
 
   # 共享版注释以下几行.采用上面的方式\n\
-  # reverse_proxy  https://kt.com  { #伪装网址\n\
+  # reverse_proxy  ${naive_fakeweb}  { #伪装网址\n\
   # header_up  Host ${upstream_hostport} \n\
   # header_up  X-Forwarded-Host ${host} \n\
  # }\n\
