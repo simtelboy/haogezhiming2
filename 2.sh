@@ -134,7 +134,9 @@ echo "----------------------------------------------------------------"
 cd /tmp
 rm caddy-forwardproxy-naive.tar.xz
 rm -r caddy-forwardproxy-naive
-wget https://github.com/klzgrad/forwardproxy/releases/download/v2.6.4-caddy2-naive/caddy-forwardproxy-naive.tar.xz
+wget https://github.com/klzgrad/forwardproxy/releases/latest/download/caddy-forwardproxy-naive.tar.xz
+#注释点,下载最新版.
+#wget https://github.com/klzgrad/forwardproxy/releases/download/v2.6.4-caddy2-naive/caddy-forwardproxy-naive.tar.xz
 tar -xf caddy-forwardproxy-naive.tar.xz
 cd caddy-forwardproxy-naive
 ./caddy version
@@ -317,17 +319,7 @@ if [ ! -d /etc/caddy ]; then
 fi
 
 if [ ! -f /etc/caddy/Caddyfile ]; then
-  config_code="
-    reverse_proxy  https://${naive_fakeweb}  { #伪装网址\n\
-    header_up  Host  {upstream_hostport}\n\
-    header_up  X-Forwarded-Host  {host}\n\		
-  }\n"
   touch /etc/caddy/Caddyfile
-else
-  config_code="
-   file_server {\n\
-  	root /var/www/html\n\
-  }\n"
 fi
 chmod +x /etc/caddy/Caddyfile
 
@@ -363,10 +355,7 @@ chmod +x /etc/caddy/Caddyfile
 #EOF	 	原版的新建caddyfile,注释掉,改为在顶部加入配置-
 #-----------原来的新建配置结束-------
 
-# 修改Caddyfile
-echo
-echo -e "$yellow修改Caddyfile$none"
-echo "----------------------------------------------------------------"
+
 begin_line=$(awk "/_naive_config_begin_/{print NR}" /etc/caddy/Caddyfile)
 end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
 if [[ -n $begin_line && -n $end_line ]]; then
@@ -377,7 +366,7 @@ sed -i "1i # _naive_config_begin_\n\
 {\n\
   order forward_proxy before file_server\n\
 }\n\
-:${naive_port}, ${naive_domain}:${naive_port} {\n\
+:${naive_port}, ${naive_domain}{\n\
   tls e16d9cb045d7@gmail.com\n\
   forward_proxy {\n\
     basic_auth ${naive_user} ${naive_pass}\n\
@@ -386,7 +375,7 @@ sed -i "1i # _naive_config_begin_\n\
     probe_resistance\n\
   }\n\
   file_server {\n\
-    root /var/www/xkcdpw-html\n\
+    root /var/www/html\n\
   }\n\
 }\n\
 # _naive_config_end_" /etc/caddy/Caddyfile
