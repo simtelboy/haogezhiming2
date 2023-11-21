@@ -374,9 +374,15 @@ sed -i "1i # _naive_config_begin_\n\
     hide_via\n\
     probe_resistance\n\
   }\n\
+  # 如果共存版则用file_server \n\
   file_server {\n\
     root /var/www/html\n\
   }\n\
+  # 如果单独版navie则用reverse_proxy \n\
+  # reverse_proxy  ${naive_fakeweb}  {\n\
+  # header_up  Host ${upstream_hostport}\n\
+  # header_up  X-Forwarded-Host ${host}\n\
+ # }\n\
 }\n\
 # _naive_config_end_" /etc/caddy/Caddyfile
 
