@@ -355,13 +355,13 @@ chmod +x /etc/caddy/Caddyfile
 #EOF	 	原版的新建caddyfile,注释掉,改为在顶部加入配置-
 #-----------原来的新建配置结束-------
 
-
+echo "--头--"
 begin_line=$(awk "/_naive_config_begin_/{print NR}" /etc/caddy/Caddyfile)
 end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
 if [[ -n $begin_line && -n $end_line ]]; then
   sed -i "${begin_line},${end_line}d" /etc/caddy/Caddyfile
 fi
-
+echo "--中--"
 sed -i "1i # _naive_config_begin_\n\
 {\n\
   order forward_proxy before file_server\n\
@@ -381,7 +381,7 @@ sed -i "1i # _naive_config_begin_\n\
 }\n\
 # _naive_config_end_" /etc/caddy/Caddyfile
 
-
+echo "--尾--"
 
 #/etc/systemd/system/
 if [[ ! -f /etc/systemd/system/caddy.service ]]; then
