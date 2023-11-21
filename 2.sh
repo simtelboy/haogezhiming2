@@ -317,17 +317,15 @@ if [ ! -d /etc/caddy ]; then
 fi
 
 if [ ! -f /etc/caddy/Caddyfile ]; then
-  config_code="
-    reverse_proxy  https://${naive_fakeweb}  { #伪装网址\n\
-    header_up  Host  {upstream_hostport}\n\
-    header_up  X-Forwarded-Host  {host}\n\		
-  }\n"
+  config_code="reverse_proxy  https://${naive_fakeweb}  { #伪装网址
+    header_up  Host  {upstream_hostport}
+    header_up  X-Forwarded-Host  {host}		
+  }"
   touch /etc/caddy/Caddyfile
 else
-  config_code="
-   file_server {\n\
-  	root /var/www/html\n\
-  }\n"
+  config_code="file_server {
+  	root /var/www/html
+  }"
 fi
 chmod +x /etc/caddy/Caddyfile
 
