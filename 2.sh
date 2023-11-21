@@ -134,7 +134,10 @@ echo "----------------------------------------------------------------"
 cd /tmp
 rm caddy-forwardproxy-naive.tar.xz
 rm -r caddy-forwardproxy-naive
-wget https://github.com/klzgrad/forwardproxy/releases/download/v2.6.4-caddy2-naive/caddy-forwardproxy-naive.tar.xz
+
+#  把2.6.4版本注释掉.改用下一行下载最新版本的xcaddy.
+# wget https://github.com/klzgrad/forwardproxy/releases/download/v2.6.4-caddy2-naive/caddy-forwardproxy-naive.tar.xz
+wget https://github.com/klzgrad/forwardproxy/releases/latest/download/caddy-forwardproxy-naive.tar.xz
 tar -xf caddy-forwardproxy-naive.tar.xz
 cd caddy-forwardproxy-naive
 ./caddy version
