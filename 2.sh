@@ -368,32 +368,36 @@ if [[ -n $begin_line && -n $end_line ]]; then
   sed -i "${begin_line},${end_line}d" /etc/caddy/Caddyfile
 fi
 
-sed -i '1i # _naive_config_begin_\
-{\
-  order forward_proxy before file_server\
-}\
-:${naive_port}, ${naive_domain} #你的域名\
-tls e16d9cb045d7@gmail.com #你的邮箱\
-route {\
- forward_proxy {\
-   basic_auth ${naive_user} ${naive_pass} #用户名和密码\
-   hide_ip\
-   hide_via\
-   probe_resistance\
-  }\
-#支持多用户,请入掉注释\
-#forward_proxy {\
-#  basic_auth haoge hao12345678 #用户名和密码\
-#   hide_ip\
-#   hide_via\
-#   probe_resistance\
-#  }\
-\
- ${config_code}\
-\
-\
-}\
-# _naive_config_end_' /etc/caddy/Caddyfile
+# 用变量存储替换的配置代码
+replacement="# _naive_config_begin_
+{
+  order forward_proxy before file_server
+}
+:${naive_port}, ${naive_domain} #你的域名
+tls e16d9cb045d7@gmail.com #你的邮箱
+route {
+ forward_proxy {
+   basic_auth ${naive_user} ${naive_pass} #用户名和密码
+   hide_ip
+   hide_via
+   probe_resistance
+  }
+#支持多用户,请入掉注释
+#forward_proxy {
+#  basic_auth haoge hao12345678 #用户名和密码
+#   hide_ip
+#   hide_via
+#   probe_resistance
+#  }
+
+ ${config_code}
+
+
+}
+# _naive_config_end_"
+
+# 使用sed命令将替换的配置代码写入Caddyfile
+sed -i "0,/_naive_config_begin_/s//${replacement}/" /etc/caddy/Caddyfile
 
 
 #/etc/systemd/system/
