@@ -317,17 +317,7 @@ if [ ! -d /etc/caddy ]; then
 fi
 
 if [ ! -f /etc/caddy/Caddyfile ]; then
-  config_code="
-    reverse_proxy  https://${naive_fakeweb}  { #伪装网址\n\
-    header_up  Host  {upstream_hostport}\n\
-    header_up  X-Forwarded-Host  {host}\n\		
-  }\n"
   touch /etc/caddy/Caddyfile
-else
-  config_code="
-   file_server {\n\
-  	root /var/www/html\n\
-  }\n"
 fi
 chmod +x /etc/caddy/Caddyfile
 
@@ -391,9 +381,9 @@ route {\n\
 #   probe_resistance\n\
 #  }\n\
 
- file_server {\n\
+file_server {\n\
   	root /var/www/html\n\
-  }\n
+  }\n\
 
   
 }\n\
@@ -480,8 +470,3 @@ qrencode -t ANSI $naive_url >> ~/_naive_url_
 echo
 echo "----------------------------------------------------------------"
 echo "END"
-
-
-
-
-
