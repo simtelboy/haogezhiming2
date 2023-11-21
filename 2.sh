@@ -391,7 +391,7 @@ route {\n\
 #   probe_resistance\n\
 #  }\n\
 
- ${config_code}
+ #${config_code}
 
   
 }\n\
