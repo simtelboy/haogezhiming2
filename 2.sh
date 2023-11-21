@@ -381,9 +381,9 @@ route {\n\
 #   probe_resistance\n\
 #  }\n\
 
-file_server {\n\
+ file_server {\n\
   	root /var/www/html\n\
-  }\n\
+  }\n
 
   
 }\n\
