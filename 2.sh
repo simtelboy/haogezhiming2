@@ -445,8 +445,8 @@ fi
 
 # 启动NaïveProxy服务端(Caddy)
 echo
-echo -e "$yellow启动NaïveProxy服务端\(Caddy\)$none"
-#echo -e "$yellow启动NaïveProxy服务端(Caddy)$none"	此行出错.
+
+echo -e "$yellow启动NaïveProxy服务端(Caddy)$none"
 echo "----------------------------------------------------------------"
 
 systemctl daemon-reload
