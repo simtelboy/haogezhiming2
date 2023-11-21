@@ -369,7 +369,7 @@ end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
 if [[ -n $begin_line && -n $end_line ]]; then
   sed -i "${begin_line},${end_line}d" /etc/caddy/Caddyfile
 fi
-
+echo "----------------------头部-------------------------"
 sed -i "1i # _naive_config_begin_\n\
 {\n\
   order forward_proxy before file_server\n\
@@ -396,7 +396,7 @@ route {\n\
   
 }\n\
 # _naive_config_end_" /etc/caddy/Caddyfile
-
+echo "----------------------尾部-------------------------"
 
 #/etc/systemd/system/
 if [[ ! -f /etc/systemd/system/caddy.service ]]; then
