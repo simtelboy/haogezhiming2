@@ -393,7 +393,7 @@ route {\n\
 
  file_server {\n\
   	root /var/www/html\n\
-  }\n"
+  }\n
 
   
 }\n\
