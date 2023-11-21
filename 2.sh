@@ -377,7 +377,6 @@ sed -i "1i # _naive_config_begin_\n\
   file_server {\n\
     root /var/www/html\n\
   }\n\
-  
 }\n\
 # _naive_config_end_" /etc/caddy/Caddyfile
 
