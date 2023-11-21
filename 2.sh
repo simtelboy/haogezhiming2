@@ -377,12 +377,6 @@ sed -i "1i # _naive_config_begin_\n\
   file_server {\n\
     root /var/www/html\n\
   }\n\
-
-  # 共享版注释以下几行.采用上面的方式\n\
-  # reverse_proxy  ${naive_fakeweb}  {\n\
-  # header_up  Host ${upstream_hostport}\n\
-  # header_up  X-Forwarded-Host ${host}\n\
- # }\n\
   
 }\n\
 # _naive_config_end_" /etc/caddy/Caddyfile
