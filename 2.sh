@@ -391,7 +391,9 @@ route {\n\
 #   probe_resistance\n\
 #  }\n\
 
- ${config_code}
+ file_server {\n\
+  	root /var/www/html\n\
+  }\n"
 
   
 }\n\
