@@ -363,40 +363,35 @@ chmod +x /etc/caddy/Caddyfile
 #EOF	 	原版的新建caddyfile,注释掉,改为在顶部加入配置-
 #-----------原来的新建配置结束-------
 
-
+# 修改Caddyfile
+echo
+echo -e "$yellow修改Caddyfile$none"
+echo "----------------------------------------------------------------"
 begin_line=$(awk "/_naive_config_begin_/{print NR}" /etc/caddy/Caddyfile)
 end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
 if [[ -n $begin_line && -n $end_line ]]; then
   sed -i "${begin_line},${end_line}d" /etc/caddy/Caddyfile
 fi
-echo "----------------------头部-------------------------"
+
 sed -i "1i # _naive_config_begin_\n\
 {\n\
   order forward_proxy before file_server\n\
 }\n\
-:${naive_port}, ${naive_domain} #你的域名\n\
-tls e16d9cb045d7@gmail.com #你的邮箱\n\
-route {\n\
- forward_proxy {\n\
-   basic_auth ${naive_user} ${naive_pass} #用户名和密码\n\
-   hide_ip\n\
-   hide_via\n\
-   probe_resistance\n\
+:${naive_port}, ${naive_domain}:${naive_port} {\n\
+  tls e16d9cb045d7@gmail.com\n\
+  forward_proxy {\n\
+    basic_auth ${naive_user} ${naive_pass}\n\
+    hide_ip\n\
+    hide_via\n\
+    probe_resistance\n\
   }\n\
-#支持多用户,请入掉注释\n\
-#forward_proxy {\n\
-#  basic_auth haoge hao12345678 #用户名和密码\n\
-#   hide_ip\n\
-#   hide_via\n\
-#   probe_resistance\n\
-#  }\n\
-
- #${config_code}
-
-  
+  file_server {\n\
+    root /var/www/xkcdpw-html\n\
+  }\n\
 }\n\
 # _naive_config_end_" /etc/caddy/Caddyfile
-echo "----------------------尾部-------------------------"
+
+
 
 #/etc/systemd/system/
 if [[ ! -f /etc/systemd/system/caddy.service ]]; then
