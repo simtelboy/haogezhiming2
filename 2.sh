@@ -358,7 +358,7 @@ end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
 if [[ -n $begin_line && -n $end_line ]]; then
   sed -i "${begin_line},${end_line}d" /etc/caddy/Caddyfile
 fi
-
+echo "----------写头写尾-----------------"
 sed -i "1i # _naive_config_begin_\n\
 {\n\
   order forward_proxy before file_server\n\
