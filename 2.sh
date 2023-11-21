@@ -2,7 +2,7 @@
 #	一键安装
 #	apt update
 #	apt install -y curl
-#	bash <(curl -L https://raw.githubusercontent.com/simtelboy/haogezhiming2/main/2.sh)
+#	bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
 #	
 #	一条语句安装:	apt update -y && apt install -y curl && bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
 
@@ -317,15 +317,17 @@ if [ ! -d /etc/caddy ]; then
 fi
 
 if [ ! -f /etc/caddy/Caddyfile ]; then
-  config_code="reverse_proxy  https://${naive_fakeweb}  { #伪装网址
-    header_up  Host  {upstream_hostport}
-    header_up  X-Forwarded-Host  {host}		
-  }"
+  config_code="
+    reverse_proxy  https://${naive_fakeweb}  { #伪装网址\n\
+    header_up  Host  {upstream_hostport}\n\
+    header_up  X-Forwarded-Host  {host}\n\		
+  }\n"
   touch /etc/caddy/Caddyfile
 else
-  config_code="file_server {
-  	root /var/www/html
-  }"
+  config_code="
+   file_server {\n\
+  	root /var/www/html\n\
+  }\n"
 fi
 chmod +x /etc/caddy/Caddyfile
 
@@ -368,37 +370,30 @@ if [[ -n $begin_line && -n $end_line ]]; then
   sed -i "${begin_line},${end_line}d" /etc/caddy/Caddyfile
 fi
 
-# 用变量存储替换的配置代码
-replacement="# _naive_config_begin_
-{
-  order forward_proxy before file_server
-}
-:${naive_port}, ${naive_domain} #你的域名
-tls e16d9cb045d7@gmail.com #你的邮箱
-route {
- forward_proxy {
-   basic_auth ${naive_user} ${naive_pass} #用户名和密码
-   hide_ip
-   hide_via
-   probe_resistance
-  }
-#支持多用户,请入掉注释
-#forward_proxy {
-#  basic_auth haoge hao12345678 #用户名和密码
-#   hide_ip
-#   hide_via
-#   probe_resistance
-#  }
+sed -i "1i  ${config_code}
+}\n\
+# _naive_config_end_" /etc/caddy/Caddyfile
 
- ${config_code}
-
-
-}
-# _naive_config_end_"
-
-# 使用sed命令将替换的配置代码写入Caddyfile
-sed -i "/# _naive_config_begin_/,/# _naive_config_end_/c\\
-${replacement}" /etc/caddy/Caddyfile
+sed -i "1i # _naive_config_begin_\n\
+{\n\
+  order forward_proxy before file_server\n\
+}\n\
+:${naive_port}, ${naive_domain} #你的域名\n\
+tls e16d9cb045d7@gmail.com #你的邮箱\n\
+route {\n\
+ forward_proxy {\n\
+   basic_auth ${naive_user} ${naive_pass} #用户名和密码\n\
+   hide_ip\n\
+   hide_via\n\
+   probe_resistance\n\
+  }\n\
+#支持多用户,请入掉注释\n\
+#forward_proxy {\n\
+#  basic_auth haoge hao12345678 #用户名和密码\n\
+#   hide_ip\n\
+#   hide_via\n\
+#   probe_resistance\n\
+#  }\n\" /etc/caddy/Caddyfile
 
 
 #/etc/systemd/system/
