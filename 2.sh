@@ -397,7 +397,8 @@ route {
 # _naive_config_end_"
 
 # 使用sed命令将替换的配置代码写入Caddyfile
-sed -i "0,/_naive_config_begin_/s#.*#${replacement}#" /etc/caddy/Caddyfile
+sed -i "/# _naive_config_begin_/,/# _naive_config_end_/c\\
+${replacement}" /etc/caddy/Caddyfile
 
 
 #/etc/systemd/system/
