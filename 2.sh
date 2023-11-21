@@ -370,10 +370,6 @@ if [[ -n $begin_line && -n $end_line ]]; then
   sed -i "${begin_line},${end_line}d" /etc/caddy/Caddyfile
 fi
 
-sed -i "1i  ${config_code}
-}\n\
-# _naive_config_end_" /etc/caddy/Caddyfile
-
 sed -i "1i # _naive_config_begin_\n\
 {\n\
   order forward_proxy before file_server\n\
@@ -393,7 +389,13 @@ route {\n\
 #   hide_ip\n\
 #   hide_via\n\
 #   probe_resistance\n\
-#  }\n\" /etc/caddy/Caddyfile
+#  }\n\
+
+ ${config_code}
+
+  
+}\n\
+# _naive_config_end_" /etc/caddy/Caddyfile
 
 
 #/etc/systemd/system/
