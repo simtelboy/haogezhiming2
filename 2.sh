@@ -411,8 +411,8 @@ sed -i "1i # _naive_config_begin_\n\
   }\n\
   # 如果单独版navie则用reverse_proxy \n\
   # reverse_proxy  ${naive_fakeweb}  {\n\
-  # header_up  Host ${upstream_hostport}\n\
-  # header_up  X-Forwarded-Host ${host}\n\
+  # header_up  Host {upstream_hostport}\n\
+  # header_up  X-Forwarded-Host {host}\n\
  # }\n\
  }\n\
 }\n\
