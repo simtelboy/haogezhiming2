@@ -320,16 +320,8 @@ fi
 
 if [ ! -f /etc/caddy/Caddyfile ]; then
 touch /etc/caddy/Caddyfile
-chmod +x /etc/caddy/Caddyfile
-cat >/etc/caddy/Caddyfile <<-EOF	 	
-# The Caddyfile is an easy way to configure your Caddy web server.
-EOF	 	
+chmod +x /etc/caddy/Caddyfile 	
 fi
-
-
-
-
-
 
 begin_line=$(awk "/_naive_config_begin_/{print NR}" /etc/caddy/Caddyfile)
 end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
