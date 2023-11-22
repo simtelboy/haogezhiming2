@@ -396,23 +396,23 @@ sed -i "1i # _naive_config_begin_\n\
 {\n\
   order forward_proxy before file_server\n\
 }\n\
-:${naive_port}, ${naive_domain} {\n\
-  tls e16d9cb045d7@gmail.com\n\
-  forward_proxy {\n\
-    basic_auth ${naive_user} ${naive_pass}\n\
-    hide_ip\n\
-    hide_via\n\
-    probe_resistance\n\
+:${naive_port}, ${naive_domain} #你的域名\n\
+tls diaoniren@qq.com #你的邮箱\n\
+route {\n\
+ forward_proxy {\n\
+   basic_auth ${naive_user} ${naive_pass} #用户名和密码\n\
+   hide_ip\n\
+   hide_via\n\
+   probe_resistance\n\
   }\n\
-  # 如果共存版则用file_server \n\
-  file_server {\n\
-    root /var/www/html\n\
+  # 如果共存版则用file_server\n\
+  #file_server {\n\
+  #  root /var/www/html\n\
+  #}\n\
+ reverse_proxy  ${naive_fakeweb}  { #伪装网址\n\
+   header_up  Host  {upstream_hostport}\n\
+   header_up  X-Forwarded-Host  {host}\n\
   }\n\
-  # 如果单独版navie则用reverse_proxy \n\
-  # reverse_proxy  ${naive_fakeweb}  {\n\
-   # header_up  Host {upstream_hostport}\n\
-   # header_up  X-Forwarded-Host {host}\n\
- # }\n\
 }\n\
 # _naive_config_end_" /etc/caddy/Caddyfile
 
