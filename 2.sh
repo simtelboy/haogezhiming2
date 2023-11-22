@@ -2,7 +2,7 @@
 #	一键安装
 #	apt update
 #	apt install -y curl
-#	bash <(curl -L https://raw.githubusercontent.com/simtelboy/haogezhiming2/main/2.sh)
+#	bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
 #	
 #	一条语句安装:	apt update -y && apt install -y curl && bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
 
@@ -319,9 +319,73 @@ if [ ! -d /etc/caddy ]; then
 fi
 
 if [ ! -f /etc/caddy/Caddyfile ]; then
-touch /etc/caddy/Caddyfile
-chmod +x /etc/caddy/Caddyfile 	
+  touch /etc/caddy/Caddyfile
+  chmod +x /etc/caddy/Caddyfile
+  cat > /etc/caddy/Caddyfile << EOF
+    # The Caddyfile is an easy way to configure your Caddy web server.
+    #
+    # Unless the file starts with a global options block, the first
+    # uncommented line is always the address of your site.
+    #
+    # To use your own domain name (with automatic HTTPS), first make
+    # sure your domain's A/AAAA DNS records are properly pointed to
+    # this machine's public IP, then replace ":80" below with your
+    # domain name.
+
+    #:80 {
+	# Set this path to your site's directory.
+	#root * /usr/share/caddy
+
+	# Enable the static file server.
+	#file_server
+
+	# Another common task is to set up a reverse proxy:
+	# reverse_proxy localhost:8080
+
+	# Or serve a PHP site through php-fpm:
+	# php_fastcgi localhost:9000
+    #}
+
+    # Refer to the Caddy docs for more information:
+    # https://caddyserver.com/docs/caddyfile
+EOF
+else
+  chmod +x /etc/caddy/Caddyfile
 fi
+
+
+
+#------------- 	原版的新建caddyfile,注释掉,改为在顶部加入配置---------------------
+#cat > /etc/caddy/Caddyfile << EOF	 	原版的新建caddyfile,注释掉,改为在顶部加入配置-
+# The Caddyfile is an easy way to configure your Caddy web server.
+#
+# Unless the file starts with a global options block, the first
+# uncommented line is always the address of your site.
+#
+# To use your own domain name (with automatic HTTPS), first make
+# sure your domain's A/AAAA DNS records are properly pointed to
+# this machine's public IP, then replace ":80" below with your
+# domain name.
+
+#:80 {
+	# Set this path to your site's directory.
+	#root * /usr/share/caddy
+
+	# Enable the static file server.
+	#file_server
+
+	# Another common task is to set up a reverse proxy:
+	# reverse_proxy localhost:8080
+
+	# Or serve a PHP site through php-fpm:
+	# php_fastcgi localhost:9000
+#}
+
+# Refer to the Caddy docs for more information:
+# https://caddyserver.com/docs/caddyfile
+#EOF	 	原版的新建caddyfile,注释掉,改为在顶部加入配置-
+#-----------原来的新建配置结束-------
+
 
 begin_line=$(awk "/_naive_config_begin_/{print NR}" /etc/caddy/Caddyfile)
 end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
