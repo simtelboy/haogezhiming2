@@ -1,3 +1,5 @@
+# bash <(curl -L https://raw.githubusercontent.com/simtelboy/haogezhiming2/main/update.sh)
+
 sleep 1
 
 echo -e " _\n| |      \n| |__  _____  ___      ____ _____ \n|  _ \(____ |/ _ \    / _  | ___ |\n| | | / ___ | |_| |  ( (_| | ____|\n|_| |_\_____|\___/    \___ |_____)\n                     (_____|\n"
