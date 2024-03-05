@@ -4,8 +4,11 @@
 
 # 定义变量
 RELEASE_URL="https://github.com/klzgrad/forwardproxy/releases/latest/download/caddy-forwardproxy-naive.tar.xz"
-LOCAL_VERSION=$(caddy --version 2>&1 | grep 'naive' | awk '{print $NF}')
-REMOTE_VERSION=$(curl -sL https://api.github.com/repos/klzgrad/forwardproxy/releases/latest | grep 'tag_name' | cut -d '"' -f 4)
+BIN_PATH="/bin/caddy"
+TMP_DIR="/tmp/caddy-forwardproxy-naive"
+TMP_FILE="/tmp/caddy-forwardproxy-naive.tar.xz"
+LOCAL_VERSION=$($BIN_PATH --version 2>&1 | grep 'naive' | awk '{print $NF}')
+REMOTE_VERSION=$(curl -s https://api.github.com/repos/klzgrad/forwardproxy/releases/latest | grep 'tag_name' | cut -d '"' -f 4)
 
 # 比较版本
 if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
@@ -15,17 +18,21 @@ if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
     systemctl stop caddy.service
     
     # 下载最新版本的naiveproxy
-    wget -O /tmp/caddy-forwardproxy-naive.tar.xz $RELEASE_URL
+    wget -O $TMP_FILE $RELEASE_URL
     
-    # 解压缩并替换文件
-    tar -xJf /tmp/caddy-forwardproxy-naive.tar.xz -C /tmp
-    mv /tmp/caddy /bin/caddy
+    # 解压缩到临时目录
+    mkdir -p $TMP_DIR
+    tar -xJf $TMP_FILE -C $TMP_DIR
     
-    # 确保caddy具有执行权限
-    chmod +x /bin/caddy
+    # 替换旧版本的caddy
+    mv $TMP_DIR/caddy $BIN_PATH
     
-    # 清理下载的临时文件
-    rm /tmp/caddy-forwardproxy-naive.tar.xz
+    # 确保新版本的caddy具有执行权限
+    chmod +x $BIN_PATH
+    
+    # 清理下载的临时文件和目录
+    rm -f $TMP_FILE
+    rm -rf $TMP_DIR
     
     # 重新启动caddy服务
     systemctl start caddy.service
