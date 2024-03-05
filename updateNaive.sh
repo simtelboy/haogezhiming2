@@ -40,8 +40,8 @@ if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
     systemctl start caddy.service
 
     # 清理下载的临时文件和目录
-   # rm -f $TMP_FILE
-   # rm -rf $TMP_DIR/caddy-forwardproxy-naive
+    rm -f $TMP_FILE
+    rm -rf $TMP_DIR/caddy-forwardproxy-naive
    
     echo "naiveproxy 更新完成."
 else
