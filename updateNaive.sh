@@ -7,7 +7,7 @@ RELEASE_URL="https://github.com/klzgrad/forwardproxy/releases/latest/download/ca
 BIN_PATH="/bin/caddy"
 TMP_DIR="/tmp/caddy-forwardproxy-naive"
 TMP_FILE="/tmp/caddy-forwardproxy-naive.tar.xz"
-LOCAL_VERSION=$($BIN_PATH --version 2>&1 | grep 'naive' | awk '{print $NF}')
+LOCAL_VERSION=$($BIN_PATH --version 2>&1 | grep 'caddy' | awk '{print $NF}')
 REMOTE_VERSION=$(curl -s https://api.github.com/repos/klzgrad/forwardproxy/releases/latest | grep 'tag_name' | cut -d '"' -f 4)
 
 # 比较版本
