@@ -9,12 +9,12 @@ RELEASE_URL="https://github.com/klzgrad/forwardproxy/releases/latest/download/ca
 BIN_PATH="/bin/caddy"
 TMP_DIR="/tmp/caddy-forwardproxy-naive"
 TMP_FILE="/tmp/caddy-forwardproxy-naive.tar.xz"
-LOCAL_VERSION=$($BIN_PATH --version 2>&1 | awk '{print $1}')
-REMOTE_VERSION=$(curl -s https://api.github.com/repos/klzgrad/forwardproxy/releases/latest | grep 'tag_name' | cut -d '"' -f 4)
+LOCAL_VERSION=$($BIN_PATH --version 2>&1 | awk '/v[0-9]+\.[0-9]+\.[0-9]+/ {print substr($1, 2)}') # 移除了 v 前缀
+REMOTE_VERSION=$(curl -s https://api.github.com/repos/klzgrad/forwardproxy/releases/latest | grep 'tag_name' | cut -d '"' -f 4 | sed 's/^v//') # 移除了 v 前缀
 
 # 比较版本
-if [ "$LOCAL_VERSION" != "v$REMOTE_VERSION" ]; then
-    echo "发现新版本: v$REMOTE_VERSION, 本地版本: $LOCAL_VERSION. 正在更新..."
+if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
+    echo "发现新版本: $REMOTE_VERSION, 本地版本: $LOCAL_VERSION. 正在更新..."
     
     # 停止caddy服务
     systemctl stop caddy.service
