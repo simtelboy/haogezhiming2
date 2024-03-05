@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#    bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
+#    bash <(curl -L https://raw.githubusercontent.com/simtelboy/haogezhiming2/main/updateNaive.sh)
 
 # 定义变量
 RELEASE_URL="https://github.com/klzgrad/forwardproxy/releases/latest/download/caddy-forwardproxy-naive.tar.xz"
