@@ -2,15 +2,17 @@
 
 #    bash <(curl -L https://raw.githubusercontent.com/simtelboy/haogezhiming2/main/updateNaive.sh)
 
-
-
 # 定义变量
 RELEASE_URL="https://github.com/klzgrad/forwardproxy/releases/latest/download/caddy-forwardproxy-naive.tar.xz"
 BIN_PATH="/bin/caddy"
 TMP_DIR="/tmp/caddy-forwardproxy-naive"
 TMP_FILE="/tmp/caddy-forwardproxy-naive.tar.xz"
-LOCAL_VERSION=$($BIN_PATH --version 2>&1 | awk '/v[0-9]+\.[0-9]+\.[0-9]+/ {print substr($1, 2)}') # 移除了 v 前缀
-REMOTE_VERSION=$(curl -s https://api.github.com/repos/klzgrad/forwardproxy/releases/latest | grep 'tag_name' | cut -d '"' -f 4 | sed 's/^v//') # 移除了 v 前缀
+LOCAL_VERSION=$($BIN_PATH --version 2>&1 | awk '{print $1}')
+REMOTE_VERSION=$(curl -s https://api.github.com/repos/klzgrad/forwardproxy/releases/latest | grep 'tag_name' | cut -d '"' -f 4)
+
+# 从版本字符串中仅提取主版本号 vX.Y.Z
+LOCAL_VERSION=$(echo $LOCAL_VERSION | grep -oP 'v\d+\.\d+\.\d+')
+REMOTE_VERSION=$(echo $REMOTE_VERSION | grep -oP 'v\d+\.\d+\.\d+')
 
 # 比较版本
 if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
