@@ -25,7 +25,7 @@ if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
     wget -O $TMP_FILE $RELEASE_URL
     
     # 解压缩到临时目录
-    mkdir -p $TMP_DIR
+   # mkdir -p $TMP_DIR
     tar -xJf $TMP_FILE -C $TMP_DIR
     
     # 替换旧版本的caddy
