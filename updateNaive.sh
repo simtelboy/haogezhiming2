@@ -34,12 +34,14 @@ if [ "$LOCAL_VERSION" != "$REMOTE_VERSION" ]; then
     # 确保新版本的caddy具有执行权限
     chmod +x $BIN_PATH
     
-    # 清理下载的临时文件和目录
-    rm -f $TMP_FILE
-    rm -rf $TMP_DIR
+    
     
     # 重新启动caddy服务
     systemctl start caddy.service
+
+    # 清理下载的临时文件和目录
+   # rm -f $TMP_FILE
+   # rm -rf $TMP_DIR
     
     echo "naiveproxy 更新完成."
 else
