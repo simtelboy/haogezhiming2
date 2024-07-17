@@ -1,9 +1,9 @@
 # 一键安装
 # apt update
 # apt install -y curl
-# bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
+# bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/format.sh)
 # 
-# 一条语句安装: apt update -y && apt install -y curl && bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
+# 一条语句安装: apt update -y && apt install -y curl && bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/format.sh)
 
 #
 #
@@ -23,13 +23,13 @@
 # 步骤1: 
 # bash <(curl -L https://github.com/simtelboy/v2ray_wss/raw/main/install.sh)
 # 步骤2:
-# bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh)
+# bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/format.sh)
 # 在步骤一,把cf云朵点灰(也就是只dns),稍后再点回彩色.
 
 # 带参数执行
 # 如果你已经很熟悉了, 安装过程中的参数都确认没问题. 可以带参数使用本脚本, 跳过脚本中的各种校验.
 
-# bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/2.sh) <domain> [netstack] [port] [username] [password] [fakeweb]
+# bash <(curl -L https://github.com/simtelboy/haogezhiming2/raw/main/format.sh) <domain> [netstack] [port] [username] [password] [fakeweb]
 
 
 sleep 1
