@@ -463,15 +463,12 @@ fi
 echo
 echo -e "$yellow下载并解压 Painted.zip 到 /etc/caddy 目录$none"
 echo "----------------------------------------------------------------"
-cd /tmp
+cd /etc/caddy/
 rm caddy_files.tar.xz
-rm -r caddy_files
-wget https://github.com/simtelboy/forwardproxy/blob/naive/caddy_files.tar.xz
+#wget https://github.com/simtelboy/forwardproxy/blob/naive/caddy_files.tar.xz
+wget https://github.com/simtelboy/forwardproxy/raw/naive/caddy_files.tar.xz
 tar -xf caddy_files.tar.xz
 rm caddy_files.tar.xz
-cd caddy_files
-cp -r * /etc/caddy/
-
 
 # 设置 /etc/caddy 目录权限
 sudo chown -R caddy:caddy /etc/caddy/
