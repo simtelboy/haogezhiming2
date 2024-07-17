@@ -471,8 +471,9 @@ tar -xf caddy_files.tar.xz
 rm caddy_files.tar.xz
 
 # 设置 /etc/caddy 目录权限
-sudo chown -R caddy:caddy /etc/caddy/
-sudo chmod -R 600 /etc/caddy/
+chown -R caddy:caddy /etc/caddy/
+chmod +x /etc/caddy/
+//sudo chmod -R 600 /etc/caddy/
 
 # 启动NaïveProxy服务端(Caddy)
 echo
