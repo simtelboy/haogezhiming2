@@ -389,9 +389,9 @@ sed -i "1i # _naive_config_begin_\n\
   order forward_proxy before file_server\n\
 }\n\
 :${naive_port}, ${naive_domain} {\n\
-  tls e16d9cb045d7@gmail.com {\n\
-    alpn http/1.1 h2 h3\n\   
-  }\n\
+  tls e16d9cb045d7@gmail.com #{\n\
+    #alpn http/1.1 h2 h3\n\   
+  #}\n\
   route {\n\
   forward_proxy {\n\
     basic_auth ${naive_user} ${naive_pass}\n\
