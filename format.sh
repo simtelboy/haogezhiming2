@@ -132,7 +132,7 @@ echo -e "$yellow下载NaïveProxy作者编译的Caddy$none"
 echo "----------------------------------------------------------------"
 cd /tmp
 rm -f caddy
-wget https://github.com/simtelboy/forwardproxy/releases/latest/download/caddy
+wget https://github.com/simtelboy/forwardproxy2/releases/latest/download/caddy
 
 # 替换caddy可执行文件
 echo
@@ -468,7 +468,7 @@ echo "----------------------------------------------------------------"
 cd /etc/caddy/
 rm caddy_files.tar.xz
 #wget https://github.com/simtelboy/forwardproxy/blob/naive/caddy_files.tar.xz
-wget https://github.com/simtelboy/forwardproxy/raw/naive/caddy_files.tar.xz
+wget https://github.com/simtelboy/forwardproxy2/raw/naive/caddy_files.tar.xz
 tar -xf caddy_files.tar.xz
 rm caddy_files.tar.xz
 
