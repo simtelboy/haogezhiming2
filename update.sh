@@ -41,14 +41,10 @@ apt update
 apt install -y sudo curl wget git jq qrencode
 
 
-echo -e "$yellow下载NaïveProxy作者编译的Caddy$none"
+echo -e "$yellow下载最新Caddy$none"
 echo "----------------------------------------------------------------"
 cd /tmp
-rm caddy-forwardproxy-naive.tar.xz
-rm -r caddy-forwardproxy-naive
-wget https://github.com/klzgrad/forwardproxy/releases/latest/download/caddy-forwardproxy-naive.tar.xz
-tar -xf caddy-forwardproxy-naive.tar.xz
-cd caddy-forwardproxy-naive
+wget https://github.com/simtelboy/HaoGeZhiMing/releases/latest/download/caddy
 ./caddy version
 
 
