@@ -325,31 +325,13 @@ fi
 
 cat > /etc/caddy/Caddyfile << EOF
 # _naive_config_begin_
-(LOG) {
-	log {
-		output file /var/log/caddy/access.log {
-			roll_size 100mb
-			roll_keep 5
-			roll_keep_for 10d
-		}
-		format filter {
-			wrap json {
-				time_format "wall"
-				time_key "time"
-				time_local
-			}
-		}
-		level INFO
-	}
-}
-
 {
 	order forward_proxy before file_server
 }
-
 :443, ${naive_domain} {
-	tls tls e16d9cb045d7@gmail.com
- 	#import LOG  
+	tls ${naive_email} #{
+	#  alpn http/1.1 h2 h3
+	# }
 	route {
 		forward_proxy {
 			basic_auth ${naive_user} ${naive_pass}
@@ -357,8 +339,14 @@ cat > /etc/caddy/Caddyfile << EOF
 			hide_via
 			probe_resistance
 		}
+		# 如果共存版则用file_server 
+		# file_server {
+		#   root /var/www/html
+		# }
+		# 如果单独版navie则用reverse_proxy 
 		reverse_proxy ${naive_fakeweb} {
 			header_up Host {upstream_hostport}
+			#header_up  X-Forwarded-Host {host}
 		}
 	}
 }
