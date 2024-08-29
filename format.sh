@@ -313,104 +313,56 @@ fi
 if [ ! -f /etc/caddy/Caddyfile ]; then
   touch /etc/caddy/Caddyfile
   chmod +x /etc/caddy/Caddyfile
-  cat > /etc/caddy/Caddyfile << EOF
-    # The Caddyfile is an easy way to configure your Caddy web server.
-    #
-    # Unless the file starts with a global options block, the first
-    # uncommented line is always the address of your site.
-    #
-    # To use your own domain name (with automatic HTTPS), first make
-    # sure your domain's A/AAAA DNS records are properly pointed to
-    # this machine's public IP, then replace ":80" below with your
-    # domain name.
-
-    #:80 {
-    # Set this path to your site's directory.
-    #root * /usr/share/caddy
-
-    # Enable the static file server.
-    #file_server
-
-    # Another common task is to set up a reverse proxy:
-    # reverse_proxy localhost:8080
-
-    # Or serve a PHP site through php-fpm:
-    # php_fastcgi localhost:9000
-    #}
-
-    # Refer to the Caddy docs for more information:
-    # https://caddyserver.com/docs/caddyfile
-EOF
-else
+else 
   chmod +x /etc/caddy/Caddyfile
 fi
-
-
-
-#------------- 原版的新建caddyfile,注释掉,改为在顶部加入配置---------------------
-#cat > /etc/caddy/Caddyfile << EOF       原版的新建caddyfile,注释掉,改为在顶部加入配置-
-# The Caddyfile is an easy way to configure your Caddy web server.
-#
-# Unless the file starts with a global options block, the first
-# uncommented line is always the address of your site.
-#
-# To use your own domain name (with automatic HTTPS), first make
-# sure your domain's A/AAAA DNS records are properly pointed to
-# this machine's public IP, then replace ":80" below with your
-# domain name.
-
-#:80 {
-    # Set this path to your site's directory.
-    #root * /usr/share/caddy
-
-    # Enable the static file server.
-    #file_server
-
-    # Another common task is to set up a reverse proxy:
-    # reverse_proxy localhost:8080
-
-    # Or serve a PHP site through php-fpm:
-    # php_fastcgi localhost:9000
-#}
-
-# Refer to the Caddy docs for more information:
-# https://caddyserver.com/docs/caddyfile
-#EOF      原版的新建caddyfile,注释掉,改为在顶部加入配置-
-#-----------原来的新建配置结束-------
-
 
 begin_line=$(awk "/_naive_config_begin_/{print NR}" /etc/caddy/Caddyfile)
 end_line=$(awk "/_naive_config_end_/{print NR}" /etc/caddy/Caddyfile)
 if [[ -n $begin_line && -n $end_line ]]; then
   sed -i "${begin_line},${end_line}d" /etc/caddy/Caddyfile
 fi
-sed -i "1i # _naive_config_begin_\n\
-{\n\
-  order forward_proxy before file_server\n\
-}\n\
-:${naive_port}, ${naive_domain} {\n\
-  tls e16d9cb045d7@gmail.com #{\n\
-    #alpn http/1.1 h2 h3\n\   
-  #}\n\
-  route {\n\
-  forward_proxy {\n\
-    basic_auth ${naive_user} ${naive_pass}\n\
-    hide_ip\n\
-    hide_via\n\
-    probe_resistance\n\
-  }\n\
-  # 如果共存版则用file_server \n\
- # file_server {\n\
- #   root /var/www/html\n\
- # }\n\
-  # 如果单独版navie则用reverse_proxy \n\
-   reverse_proxy  ${naive_fakeweb}  {\n\
-   header_up  Host {upstream_hostport}\n\
-   header_up  X-Forwarded-Host {host}\n\
-  }\n\
- }\n\
-}\n\
-# _naive_config_end_" /etc/caddy/Caddyfile
+
+cat > /etc/caddy/Caddyfile << EOF
+# _naive_config_begin_
+(LOG) {
+	log {
+		output file /var/log/caddy/access.log {
+			roll_size 100mb
+			roll_keep 5
+			roll_keep_for 10d
+		}
+		format filter {
+			wrap json {
+				time_format "wall"
+				time_key "time"
+				time_local
+			}
+		}
+		level INFO
+	}
+}
+
+{
+	order forward_proxy before file_server
+}
+
+:443, ${naive_domain} {
+	tls ${naive_cert} ${naive_key}
+	route {
+		forward_proxy {
+			basic_auth ${naive_user} ${naive_pass}
+			hide_ip
+			hide_via
+			probe_resistance
+		}
+		reverse_proxy ${naive_fakeweb} {
+			header_up Host {upstream_hostport}
+		}
+	}
+}
+# _naive_config_end_
+EOF
 
 #/etc/systemd/system/
 if [[ ! -f /etc/systemd/system/caddy.service ]]; then
