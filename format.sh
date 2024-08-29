@@ -348,7 +348,8 @@ cat > /etc/caddy/Caddyfile << EOF
 }
 
 :443, ${naive_domain} {
-	tls ${naive_cert} ${naive_key}
+	tls tls e16d9cb045d7@gmail.com
+ 	#import LOG  
 	route {
 		forward_proxy {
 			basic_auth ${naive_user} ${naive_pass}
