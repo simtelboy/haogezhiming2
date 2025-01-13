@@ -1,5 +1,11 @@
 #!/bin/bash
 
+/*
+使用:   bash <(curl -s https://raw.githubusercontent.com/simtelboy/haogezhiming2/refs/heads/main/Uninstalling.sh)
+或者:   bash <(wget -qO- https://raw.githubusercontent.com/simtelboy/haogezhiming2/refs/heads/main/Uninstalling.sh)
+
+*/
+
 # 1. 删除 Go 安装目录
 echo "正在删除 Go 安装目录..."
 sudo rm -rf /usr/local/go
