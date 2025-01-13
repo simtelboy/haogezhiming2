@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#运行: bash <(wget -qO- https://raw.githubusercontent.com/simtelboy/haogezhiming2/refs/heads/main/Compiling.sh)
+
 # 1. 安装 Go（最新版本）
 echo "正在安装 Go..."
 LATEST_GO_VERSION=$(curl -s https://go.dev/dl/ | grep -oP 'go[0-9]+\.[0-9]+\.[0-9]+' | sort -V | tail -n 1)
