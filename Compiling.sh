@@ -1,6 +1,7 @@
 #!/bin/bash
 
-#运行: bash <(wget -qO- https://raw.githubusercontent.com/simtelboy/haogezhiming2/refs/heads/main/Compiling.sh)
+#运行:       bash <(wget -qO- https://raw.githubusercontent.com/simtelboy/haogezhiming2/refs/heads/main/Compiling.sh)
+#或者运行:    bash <(curl -s https://raw.githubusercontent.com/simtelboy/haogezhiming2/refs/heads/main/Compiling.sh)
 
 # 1. 安装 Go（最新版本）
 echo "正在安装 Go..."
