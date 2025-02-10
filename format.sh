@@ -462,5 +462,13 @@ qrencode -t ANSI $naive_url >> ~/_naive_url_
 
 echo
 echo "----------------------------------------------------------------"
-echo -e "$yellow 请你登录以下网页进行添加用户操作和管理其它参数:\n https://${naive_domain}/admin/login $none"
+# 画框
+_yellow "╭"$(printf "%0.s-" $(seq 1 60))"╮"
+_yellow "│"                                                                                                    "│"
+_yellow "│  你可以登录以下网址     │"
+_yellow "│  添加用户或设置其它属性:                    │"
+_yellow "│  https://${naive_domain}/admin/login                           │"
+_yellow "│"                                                                                                    "│"
+_yellow "╰"$(printf "%0.s-" $(seq 1 60))"╯"
 echo "END"
+
