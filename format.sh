@@ -95,18 +95,21 @@ if [ $# -ge 1 ]; then
 
 
     #第四个参数是 用户名
-    naive_user=${4}
-    if [[ -z $naive_user ]]; then
-        naive_user=$(openssl rand -hex 8)
-    fi
+    naive_user="haoge" #设置默认用户名
+    #naive_user=${4}
+    #if [[ -z $naive_user ]]; then
+    #    naive_user=$(openssl rand -hex 8)
+    #fi
 
 
     #第五个参数是 密码
-    naive_pass=${5}
-    if [[ -z $naive_pass ]]; then
+    naive_pass="123456789kt" #设置默认密码
+    #naive_pass=${5}
+    #if [[ -z $naive_pass ]]; then
         #默认与用户名相等
-        naive_pass=$naive_user
-    fi
+    #    naive_pass=$naive_user
+    #fi
+    
     #第六个参数是伪装网址
     naive_fakeweb=${6}
      
@@ -116,6 +119,10 @@ if [ $# -ge 1 ]; then
     echo -e "用户名:${naive_user}"
     echo -e "密码:${naive_pass}"
     echo -e "伪装:${naive_fakeweb}"
+else
+    # 如果没有提供参数，则设置默认值
+    naive_user="haoge"
+    naive_pass="123456789kt"    
 fi
 
 
@@ -252,37 +259,37 @@ fi
 
 
 # 用户名
-if [[ -z $naive_user ]]; then
-    random=$(openssl rand -hex 8)
-    while :; do
-        echo
-        echo -e "请输入 ${magenta}用户名${none} Input your username"
-        read -p "$(echo -e "(默认: ${cyan}${random}$none):") " naive_user
-        [ -z "$naive_user" ] && naive_user=$random
-        echo
-        echo
-        echo -e "$yellow 你的用户名Username = $cyan$naive_user$none"
-        echo "----------------------------------------------------------------"
-        break
-    done
-fi
+#if [[ -z $naive_user ]]; then
+#    random=$(openssl rand -hex 8)
+#    while :; do
+#        echo
+#        echo -e "请输入 ${magenta}用户名${none} Input your username"
+#        read -p "$(echo -e "(默认: ${cyan}${random}$none):") " naive_user
+#        [ -z "$naive_user" ] && naive_user=$random
+#        echo
+#        echo
+#        echo -e "$yellow 你的用户名Username = $cyan$naive_user$none"
+#        echo "----------------------------------------------------------------"
+#        break
+#    done
+#fi
 
 
 # 密码
-if [[ -z $naive_pass ]]; then
-    random=$(openssl rand -hex 8)
-    while :; do
-        echo
-        echo -e "请输入 ${magenta}密码${none} Input your password"
-        read -p "$(echo -e "(默认: ${cyan}${random}$none):") " naive_pass
-        [ -z "$naive_pass" ] && naive_pass=$random
-        echo
-        echo
-        echo -e "$yellow 你的密码Password = $cyan$naive_pass$none"
-        echo "----------------------------------------------------------------"
-        break
-    done
-fi
+#if [[ -z $naive_pass ]]; then
+#    random=$(openssl rand -hex 8)
+#    while :; do
+#        echo
+#        echo -e "请输入 ${magenta}密码${none} Input your password"
+#        read -p "$(echo -e "(默认: ${cyan}${random}$none):") " naive_pass
+#        [ -z "$naive_pass" ] && naive_pass=$random
+#        echo
+#        echo
+#        echo -e "$yellow 你的密码Password = $cyan$naive_pass$none"
+#        echo "----------------------------------------------------------------"
+#        break
+#    done
+#fi
 
 # 伪装网址
 if [[ -z $naive_fakeweb ]]; then
@@ -455,4 +462,5 @@ qrencode -t ANSI $naive_url >> ~/_naive_url_
 
 echo
 echo "----------------------------------------------------------------"
+echo -e "$yellow 请你登录以下网页进行添加用户操作和管理其它参数:\n https://${naive_domain}/admin/login $none"
 echo "END"
