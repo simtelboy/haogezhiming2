@@ -17,7 +17,7 @@
 # rm /usr/bin/caddy
 # 
 # 一条语句反安装:
-# service caddy stop && systemctl disable caddy && sudo userdel caddy && sudo groupdel caddy && rm -r /etc/caddy && rm /etc/systemd/system/caddy.service && rm /usr/bin/caddy && rm /etc/apt/sources.list.d/caddy-stable.list && apt remove -y caddy
+# service caddy stop && systemctl disable caddy && sudo userdel caddy && sudo groupdel caddy && rm -r /etc/caddy && rm /etc/systemd/system/caddy.service && rm /usr/bin/caddy && rm /etc/apt/sources.list.d/caddy-stable.list && apt remove -y caddy || true
 
 # 如果希望和Caddy V2前置的VLESS/Vmess V2Ray共存
 # 步骤1: 
