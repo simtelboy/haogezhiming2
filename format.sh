@@ -464,12 +464,12 @@ echo
 echo "----------------------------------------------------------------"
 # 画框
 _yellow "╭"$(printf "%0.s-" $(seq 1 60))"╮"
-_yellow "│"                                                                                                    "│"
-_yellow "│  你务必登录以下网址                                         │"
-_yellow "│  添加用户才能正常运行:                                   │"
-_yellow "│  管理员:	https://${naive_domain}/admin/login                                │"
-_yellow "│  超级管理员：	https://${naive_domain}/admin/rootlogin                                │"
-_yellow "│"                                                                                                    "│"
+_yellow "│$(printf "%-60s" " ")│"
+_yellow "│  $(printf "%-58s" "你务必登录以下网址")│"
+_yellow "│  $(printf "%-58s" "添加用户才能正常运行:")│"
+_yellow "│  $(printf "%-58s" "管理员: https://${naive_domain}/admin/login")│"
+_yellow "│  $(printf "%-58s" "超级管理员： https://${naive_domain}/admin/rootlogin")│"
+_yellow "│$(printf "%-60s" " ")│"
 _yellow "╰"$(printf "%0.s-" $(seq 1 60))"╯"
 echo "END"
 
