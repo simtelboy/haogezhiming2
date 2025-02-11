@@ -466,20 +466,20 @@ echo "----------------------------------------------------------------"
 width=60
 
 # 画顶部边框
-_yellow "+$(printf "%0.s-" $(seq 1 $width))+"
+_yellow "╭$(printf "%0.s─" $(seq 1 $width))╮"
 
 # 画空行
-_yellow "|$(printf "%${width}s" "")|"
+_yellow "$(printf "%${width}s" "")"
 
 # 画内容行
-_yellow "|  $(printf "%-${width}s" "你务必登录以下网址")"
-_yellow "|  $(printf "%-${width}s" "添加用户才能正常运行:")"
-_yellow "|  $(printf "%-${width}s" "管理员: https://${naive_domain}/admin/login")"
-_yellow "|  $(printf "%-${width}s" "超级管理员： https://${naive_domain}/admin/rootlogin")"
+_yellow "  $(printf "%-${width}s" "你务必登录以下网址")"
+_yellow "  $(printf "%-${width}s" "添加用户才能正常运行:")"
+_yellow "  $(printf "%-${width}s" "管理员: https://${naive_domain}/admin/login")"
+_yellow "  $(printf "%-${width}s" "超级管理员： https://${naive_domain}/admin/rootlogin")"
 
 # 画空行
-_yellow "|$(printf "%${width}s" "")|"
+_yellow "$(printf "%${width}s" "")"
 
 # 画底部边框
-_yellow "+$(printf "%0.s-" $(seq 1 $width))+"
+_yellow "╰$(printf "%0.s─" $(seq 1 $width))╯"
 echo "END"
