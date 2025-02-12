@@ -489,6 +489,7 @@ echo -e "${green}Caddy 安装完成！${none}"
 
 # 升级Caddy
 upgrade_caddy() {
+    pause
     echo -e "${yellow}开始升级Caddy...${none}"
     service caddy stop
     cd /tmp
@@ -503,6 +504,7 @@ upgrade_caddy() {
 
 # 升级Caddy和caddy_files
 upgrade_caddy_and_files() {
+    pause
     echo -e "${yellow}开始升级Caddy和caddy_files...${none}"
     service caddy stop
     cd /tmp
@@ -527,6 +529,7 @@ upgrade_caddy_and_files() {
 
 # 卸载所有
 uninstall_all() {
+    pause
     echo -e "${yellow}开始卸载Caddy及相关文件...${none}"
     service caddy stop || true
     systemctl disable caddy || true
