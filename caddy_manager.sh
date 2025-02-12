@@ -53,10 +53,6 @@ pause() {
     echo
 }
 
-
-
-
-
 # 显示菜单
 show_menu() {
     echo -e "${yellow}请选择操作：${none}"
@@ -532,15 +528,16 @@ upgrade_caddy_and_files() {
 # 卸载所有
 uninstall_all() {
     echo -e "${yellow}开始卸载Caddy及相关文件...${none}"
-    service caddy stop
-    systemctl disable caddy
-    sudo userdel caddy
-    sudo groupdel caddy
-    rm -r /etc/caddy
-    rm /etc/systemd/system/caddy.service
-    rm /usr/bin/caddy
-    rm /etc/apt/sources.list.d/caddy-stable.list
+    service caddy stop || true
+    systemctl disable caddy || true
+    sudo userdel caddy || true
+    sudo groupdel caddy || true
+    rm -rf /etc/caddy || true
+    rm -f /etc/systemd/system/caddy.service || true
+    rm -f /usr/bin/caddy || true
+    rm -f /etc/apt/sources.list.d/caddy-stable.list || true
     apt remove -y caddy || true
+    systemctl daemon-reload
     echo -e "${green}Caddy 及相关文件已卸载！${none}"
 }
 
@@ -565,5 +562,4 @@ while true; do
             ;;
     esac
     pause
-    break
 done
