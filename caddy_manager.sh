@@ -56,11 +56,12 @@ pause() {
 # 显示菜单
 show_menu() {
     echo -e "${yellow}请选择操作：${none}"
-    echo -e "${green}1: 安装Caddy${none}"
-    echo -e "${green}2: 升级Caddy${none}"
-    echo -e "${green}3: 升级Caddy和caddy_files${none}"
+    echo -e "${green}1: 安装【haoge】系统${none}"
+    echo -e "${green}2: 升级核心程序${none}"
+    echo -e "${green}3: 升级核心程序和网页管理系统${none}"
     echo -e "${green}4: 卸载所有${none}"
-    read -p "请输入选项 (1/2/3/4): " choice
+    echo -e "${green}5: 退出（Ctrl+X）${none}"
+    read -p "请输入选项 (1/2/3/4/5): " choice
 }
 
 # 安装Caddy
@@ -559,6 +560,10 @@ while true; do
             ;;
         4)
             uninstall_all
+            ;;
+	5)
+            echo -e "${yellow}退出脚本...${none}"
+            exit 0
             ;;
         *)
             error
