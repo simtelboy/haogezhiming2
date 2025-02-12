@@ -60,7 +60,7 @@ show_menu() {
     echo -e "${green}2: 升级核心程序${none}"
     echo -e "${green}3: 升级核心程序和网页管理系统${none}"
     echo -e "${green}4: 卸载所有${none}"
-    echo -e "${green}5: 退出（Ctrl+X）${none}"
+    echo -e "${green}5: 退出（Ctrl+C）${none}"
     read -p "请输入选项 (1/2/3/4/5): " choice
 }
 
