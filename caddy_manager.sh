@@ -93,7 +93,7 @@ compare_versions() {
 
 # 安装Caddy
 install_caddy() {
-    echo -e "${yellow}开始安装Caddy...${none}"
+    echo -e "${yellow}开始安装haoge...${none}"
    
 #执行脚本带参数
 if [ $# -ge 1 ]; then
@@ -457,7 +457,7 @@ chmod +x /etc/caddy/
 
 # 启动NaïveProxy服务端(Caddy)
 echo
-echo -e "$yellow启动haoge服务端(Caddy)$none"
+echo -e "$yellow启动haoge服务端 $none"
 echo "----------------------------------------------------------------"
 
 systemctl daemon-reload
@@ -518,7 +518,7 @@ echo -e "${green}Caddy 安装完成！${none}"
 # 升级Caddy
 upgrade_caddy() {
     pause
-    echo -e "${yellow}开始检查Caddy版本...${none}"
+    echo -e "${yellow}开始检查Haoge版本...${none}"
 
     local_version=$(get_local_caddy_version)
     latest_version=$(get_latest_caddy_version)
