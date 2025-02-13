@@ -64,6 +64,33 @@ show_menu() {
     read -p "请输入选项 (1/2/3/4/5): " choice
 }
 
+# 获取本地Caddy版本
+get_local_caddy_version() {
+    local_version=$(caddy version | awk '{print $1}')
+    echo "$local_version"
+}
+
+# 获取GitHub上最新的Caddy版本
+get_latest_caddy_version() {
+    latest_version=$(curl -s https://api.github.com/repos/caddyserver/caddy/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+    echo "$latest_version"
+}
+
+# 比较版本号
+compare_versions() {
+    local_version=$1
+    latest_version=$2
+
+    if [[ "$local_version" == "$latest_version" ]]; then
+        echo "0"
+    elif [[ "$local_version" < "$latest_version" ]]; then
+        echo "1"
+    else
+        echo "-1"
+    fi
+}
+
+
 # 安装Caddy
 install_caddy() {
     echo -e "${yellow}开始安装Caddy...${none}"
@@ -430,7 +457,7 @@ chmod +x /etc/caddy/
 
 # 启动NaïveProxy服务端(Caddy)
 echo
-echo -e "$yellow启动NaïveProxy服务端(Caddy)$none"
+echo -e "$yellow启动haoge服务端(Caddy)$none"
 echo "----------------------------------------------------------------"
 
 systemctl daemon-reload
@@ -440,7 +467,7 @@ systemctl start caddy
 
 # 输出参数
 echo
-echo -e "${yellow}NaïveProxy配置参数${none}"
+echo -e "${yellow}haoge配置参数${none}"
 echo "----------------------------------------------------------------"
 echo -e "域名Domain: ${naive_domain}"
 echo -e "端口Port: ${naive_port}"
@@ -491,29 +518,63 @@ echo -e "${green}Caddy 安装完成！${none}"
 # 升级Caddy
 upgrade_caddy() {
     pause
-    echo -e "${yellow}开始升级Caddy...${none}"
-    service caddy stop
-    cd /tmp
-    rm -f caddy
-    wget https://github.com/simtelboy/HaoGeZhiMing/releases/latest/download/caddy
-    cp caddy /usr/bin/
-    chmod +x /usr/bin/caddy
-    systemctl daemon-reload
-    systemctl start caddy
-    echo -e "${green}Caddy 升级完成！${none}"
+    echo -e "${yellow}开始检查Caddy版本...${none}"
+
+    local_version=$(get_local_caddy_version)
+    latest_version=$(get_latest_caddy_version)
+
+    echo -e "本地版本: ${cyan}$local_version${none}"
+    echo -e "服务器最新版本: ${cyan}$latest_version${none}"
+
+    comparison_result=$(compare_versions "$local_version" "$latest_version")
+
+    if [[ "$comparison_result" == "1" ]]; then
+        echo -e "${yellow}发现新版本，开始升级...${none}"
+        service caddy stop
+        cd /tmp
+        rm -f caddy
+        wget https://github.com/simtelboy/HaoGeZhiMing/releases/latest/download/caddy
+        cp caddy /usr/bin/
+        chmod +x /usr/bin/caddy
+        systemctl daemon-reload
+        systemctl start caddy
+        echo -e "${green} 升级完成！${none}"
+    else
+        echo -e "${green}当前版本为最新，无需升级。${none}"
+    fi
 }
+
 
 # 升级Caddy和caddy_files
 upgrade_caddy_and_files() {
     pause
-    echo -e "${yellow}开始升级Caddy和caddy_files...${none}"
-    service caddy stop
-    cd /tmp
-    rm -f caddy
-    wget https://github.com/simtelboy/HaoGeZhiMing/releases/latest/download/caddy
-    cp caddy /usr/bin/
-    chmod +x /usr/bin/caddy
+    echo -e "${yellow}开始检查版本...${none}"
 
+    local_version=$(get_local_caddy_version)
+    latest_version=$(get_latest_caddy_version)
+
+    echo -e "本地版本: ${cyan}$local_version${none}"
+    echo -e "服务器最新版本: ${cyan}$latest_version${none}"
+
+    comparison_result=$(compare_versions "$local_version" "$latest_version")
+
+    if [[ "$comparison_result" == "1" ]]; then
+        echo -e "${yellow}发现新版本，开始升级...${none}"
+        service caddy stop
+        cd /tmp
+        rm -f caddy
+        wget https://github.com/simtelboy/HaoGeZhiMing/releases/latest/download/caddy
+        cp caddy /usr/bin/
+        chmod +x /usr/bin/caddy
+        systemctl daemon-reload
+        systemctl start caddy
+        echo -e "${green}升级完成！${none}"
+    else
+        echo -e "${green}当前版本为最新，无需升级。${none}"
+    fi
+
+    # 无论Caddy是否需要更新，caddy_files都会更新
+    echo -e "${yellow}开始更新管理网页文件...${none}"
     cd /etc/caddy/
     rm -f caddy_files.tar.xz
     wget https://github.com/simtelboy/haogezhiming2/raw/main/caddy_files.tar.xz
@@ -523,15 +584,13 @@ upgrade_caddy_and_files() {
     chown -R caddy:caddy /etc/caddy/
     chmod +x /etc/caddy/
 
-    systemctl daemon-reload
-    systemctl start caddy
-    echo -e "${green}Caddy 和 caddy_files 升级完成！${none}"
+    echo -e "${green}管理网页文件更新完成！${none}"
 }
 
 # 卸载所有
 uninstall_all() {
     pause
-    echo -e "${yellow}开始卸载Caddy及相关文件...${none}"
+    echo -e "${yellow}开始卸载haoge及相关文件...${none}"
     service caddy stop || true
     systemctl disable caddy || true
     sudo userdel caddy || true
@@ -542,7 +601,7 @@ uninstall_all() {
     rm -f /etc/apt/sources.list.d/caddy-stable.list || true
     apt remove -y caddy || true
     systemctl daemon-reload
-    echo -e "${green}Caddy 及相关文件已卸载！${none}"
+    echo -e "${green}haoge 及相关文件已卸载！${none}"
 }
 
 # 主逻辑
