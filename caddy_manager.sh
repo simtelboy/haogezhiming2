@@ -96,7 +96,7 @@ compare_versions() {
 
 # 安装Caddy
 install_caddy() {
-    echo -e "${yellow}开始安装haoge...${none}"
+    echo -e "${yellow}开始安装天神之眼高阶版...${none}"
    
 #执行脚本带参数
 if [ $# -ge 1 ]; then
@@ -154,8 +154,8 @@ if [ $# -ge 1 ]; then
     echo -e "伪装:${naive_fakeweb}"
 else
     # 如果没有提供参数，则设置默认值
-    naive_user="haoge"
-    naive_pass="123456789kt"    
+    naive_user="DivineEye"
+    naive_pass="DivineEye"    
 fi
 
 
@@ -207,7 +207,7 @@ fi
 
 # 网络栈
 if [[ -z $netstack ]]; then
-    echo -e "如果你的小鸡是${magenta}双栈(同时有IPv4和IPv6的IP)${none}，请选择你把系统搭在哪个'网口'上"
+    echo -e "如果你的服务器是${magenta}双栈(同时有IPv4和IPv6的IP)${none}，请选择你把系统搭在哪个'网口'上"
     echo "如果你不懂这段话是什么意思, 请直接回车"
     read -p "$(echo -e "Input ${cyan}4${none} for IPv4, ${cyan}6${none} for IPv6:") " netstack
     if [[ $netstack == "4" ]]; then
