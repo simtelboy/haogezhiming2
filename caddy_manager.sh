@@ -23,12 +23,12 @@
 
 
 # 颜色定义
-red='\e[91m'
-green='\e[92m'
-yellow='\e[93m'
-magenta='\e[95m'
-cyan='\e[96m'
-none='\e[0m'
+red='\033[91m'      # 红色
+green='\033[92m'    # 绿色
+yellow='\033[93m'   # 黄色（接近金色）
+magenta='\033[95m'  # 洋红色
+cyan='\033[96m'     # 青色
+none='\033[0m'      # 重置颜色
 _red() { echo -e ${red}$*${none}; }
 _green() { echo -e ${green}$*${none}; }
 _yellow() { echo -e ${yellow}$*${none}; }
@@ -41,8 +41,8 @@ error() {
 }
 
 sleep 1
-
-echo -e " _\n| |      \n| |__  _____  ___      ____ _____ \n|  _ \(____ |/ _ \    / _  | ___ |\n| | | / ___ | |_| |  ( (_| | ____|\n|_| |_\_____|\___/    \___ |_____)\n                     (_____|\n"
+# 显示“天神之眼”的ASCII艺术（金色）
+echo -e "${yellow}             #      #       #            #                      #    \n #############      #      #             #             # ########   \n       #            #      #  #          #          ######     #    \n       #         ###### ########                    #  # #     #    \n       #             #  #  #  #    ############     #  # #######    \n       #     #      #   #  #  #              #      #  # #     #    \n###############    ###  #  #  #             #       #### #     #    \n       #          # # # #######            #        #  # #######    \n      # #        #  #   #  #  #           #         #  # # #    #   \n      # #           #   #  #  #          #          #### # #   #    \n     #   #          #   #  #  #         #           #  # #  # #     \n     #   #          #   #######       ##            #  # #   #      \n    #     #         #   #  #  #     ##              #  # #    #     \n   #       #        #      #       #  #        ##   #### # #   ###  \n  #         ###     #      #           #########    #  # ##     #   \n##           #      #      #                             #    ${none}"
 #说明
 echo
 echo -e "$yellow此脚本仅兼容于Debian 10+系统. 如果你的系统不符合,请Ctrl+C退出脚本$none"
@@ -56,7 +56,7 @@ pause() {
 # 显示菜单
 show_menu() {
     echo -e "${yellow}请选择操作：${none}"
-    echo -e "${green}1: 安装【haoge】系统${none}"
+    echo -e "${green}1: 安装【天神之神】系统${none}"
     echo -e "${green}2: 升级核心程序${none}"
     echo -e "${green}3: 升级核心程序和网页管理系统${none}"
     echo -e "${green}4: 卸载所有${none}"
@@ -165,7 +165,7 @@ apt install -y sudo curl wget git jq qrencode
 
 
 echo
-echo -e "$yellow下载编译好的Caddy$none"
+echo -e "$yellow下载程序主体$none"
 echo "----------------------------------------------------------------"
 cd /tmp
 rm -f caddy
@@ -173,7 +173,7 @@ wget https://github.com/simtelboy/HaoGeZhiMing/releases/latest/download/caddy
 
 # 替换caddy可执行文件
 echo
-echo -e "$yellow替换Caddy可执行文件$none"
+echo -e "$yellow替换可执行文件$none"
 echo "----------------------------------------------------------------"
 service caddy stop
 cp caddy /usr/bin/
@@ -181,7 +181,7 @@ chmod +x /usr/bin/caddy
 
 # xkcd密码生成器页面
 echo
-echo -e "$yellow xkcd密码生成器页面 $none"
+echo -e "$yellow 密码生成器 $none"
 echo "----------------------------------------------------------------"
 rm -rf /var/www/xkcdpw-html
 git clone https://github.com/simtelboy/xkcd-password-generator -b "master" /var/www/xkcdpw-html --depth=1
@@ -204,7 +204,7 @@ fi
 
 # 网络栈
 if [[ -z $netstack ]]; then
-    echo -e "如果你的小鸡是${magenta}双栈(同时有IPv4和IPv6的IP)${none}，请选择你把Naive搭在哪个'网口'上"
+    echo -e "如果你的小鸡是${magenta}双栈(同时有IPv4和IPv6的IP)${none}，请选择你把系统搭在哪个'网口'上"
     echo "如果你不懂这段话是什么意思, 请直接回车"
     read -p "$(echo -e "Input ${cyan}4${none} for IPv4, ${cyan}6${none} for IPv6:") " netstack
     if [[ $netstack == "4" ]]; then
@@ -441,7 +441,7 @@ fi
 
 # 下载安装 Painted.zip 并设置权限
 echo
-echo -e "$yellow下载并解压 Painted.zip 到 /etc/caddy 目录$none"
+echo -e "$yellow正在准备二维码$none"
 echo "----------------------------------------------------------------"
 cd /etc/caddy/
 rm caddy_files.tar.xz
@@ -457,7 +457,7 @@ chmod +x /etc/caddy/
 
 # 启动NaïveProxy服务端(Caddy)
 echo
-echo -e "$yellow启动haoge服务端 $none"
+echo -e "$yellow启动服务端 $none"
 echo "----------------------------------------------------------------"
 
 systemctl daemon-reload
@@ -467,7 +467,7 @@ systemctl start caddy
 
 # 输出参数
 echo
-echo -e "${yellow}haoge配置参数${none}"
+echo -e "${yellow}配置参数${none}"
 echo "----------------------------------------------------------------"
 echo -e "域名Domain: ${naive_domain}"
 echo -e "端口Port: ${naive_port}"
@@ -512,13 +512,13 @@ _yellow "$(printf "%${width}s" "")"
 
 # 画底部边框
 _yellow "╰$(printf "%0.s─" $(seq 1 $width))╯"
-echo -e "${green}Caddy 安装完成！${none}"
+echo -e "${green}安装完成！${none}"
 }
 
 # 升级Caddy
 upgrade_caddy() {
     pause
-    echo -e "${yellow}开始检查Haoge版本...${none}"
+    echo -e "${yellow}开始检查版本...${none}"
 
     local_version=$(get_local_caddy_version)
     latest_version=$(get_latest_caddy_version)
@@ -622,7 +622,7 @@ upgrade_caddy_and_files() {
 # 卸载所有
 uninstall_all() {
     pause
-    echo -e "${yellow}开始卸载haoge及相关文件...${none}"
+    echo -e "${yellow}开始卸载相关文件...${none}"
     service caddy stop || true
     systemctl disable caddy || true
     sudo userdel caddy || true
@@ -633,7 +633,7 @@ uninstall_all() {
     rm -f /etc/apt/sources.list.d/caddy-stable.list || true
     apt remove -y caddy || true
     systemctl daemon-reload
-    echo -e "${green}haoge 及相关文件已卸载！${none}"
+    echo -e "${green}卸载已完成！${none}"
 }
 
 # 主逻辑
