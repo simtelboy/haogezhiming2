@@ -571,6 +571,22 @@ upgrade_caddy_and_files() {
         echo -e "${green}升级完成！${none}"
     else
         echo -e "${green}当前版本为最新，无需升级。${none}"
+        echo -e "${yellow}是否强制重新安装最新版本？${none}"
+        read -p "$(echo -e "输入 ${cyan}y${none} 强制升级，${cyan}n${none} 退出 [y/n]: ")" force_upgrade
+        if [[ "$force_upgrade" == "y" || "$force_upgrade" == "Y" ]]; then
+            echo -e "${yellow}开始强制升级...${none}"
+            service caddy stop
+            cd /tmp
+            rm -f caddy
+            wget https://github.com/simtelboy/HaoGeZhiMing/releases/latest/download/caddy
+            cp caddy /usr/bin/
+            chmod +x /usr/bin/caddy
+            systemctl daemon-reload
+            systemctl start caddy
+            echo -e "${green} 强制升级完成！${none}"
+        else
+            echo -e "${yellow}取消升级，返回菜单。${none}"
+        fi
     fi
 
     # 无论Caddy是否需要更新，caddy_files都会更新
