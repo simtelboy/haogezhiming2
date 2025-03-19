@@ -76,7 +76,7 @@ get_local_caddy_version() {
 
 # 获取GitHub上最新的Caddy版本
 get_latest_caddy_version() {
-    latest_version=$(curl -s https://api.github.com/repos/caddyserver/caddy/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+    latest_version=$(curl -s https://github.com/simtelboy/HaoGeZhiMing/releases/latest/download/caddy | grep -oP '"tag_name": "\K(.*)(?=")')
     echo "$latest_version"
 }
 
