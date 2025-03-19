@@ -63,7 +63,8 @@ show_menu() {
     echo -e "${green}2: 升级核心程序${none}"
     echo -e "${green}3: 升级核心程序和网页管理系统${none}"
     echo -e "${green}4: 卸载所有${none}"
-    echo -e "${green}5: 退出（Ctrl+C）${none}"
+    echo -e "${green}5: 查看 Caddy 状态${none}"
+    echo -e "${green}6: 退出（Ctrl+C）${none}"
     read -p "请输入选项 (1/2/3/4/5): " choice
 }
 
@@ -91,6 +92,103 @@ compare_versions() {
     else
         echo "-1"
     fi
+}
+
+
+# 检查 Caddy 状态
+check_caddy_status() {
+    # 获取 Caddy 的进程 ID
+    CADDY_PID=$(pgrep -f caddy)
+
+    if [ -z "$CADDY_PID" ]; then
+        echo -e "${red}未找到正在运行的 Caddy 进程${none}"
+        return 1
+    fi
+
+    echo -e "${yellow}=== Caddy 进程监控 ===${none}"
+    echo "进程 PID: $CADDY_PID"
+    echo ""
+
+    # 获取 CPU 和内存使用情况（通过 /proc）
+    echo "1. CPU 和内存占用:"
+    cpu_times=$(cat /proc/"$CADDY_PID"/stat 2>/dev/null | awk '{print $14 + $15 + $16 + $17}') # utime + stime + cutime + cstime
+    total_cpu=$(cat /proc/stat 2>/dev/null | grep '^cpu ' | awk '{print $2 + $3 + $4 + $5 + $6 + $7 + $8 + $9 + $10}')
+    if [ -n "$cpu_times" ] && [ -n "$total_cpu" ] && [ "$total_cpu" -gt 0 ]; then
+        cpu_usage=$((cpu_times * 100 / total_cpu))
+        cpu_display="$cpu_usage%"
+    else
+        cpu_display="无法获取"
+    fi
+    rss=$(grep "VmRSS" /proc/"$CADDY_PID"/status 2>/dev/null | awk '{print $2}') # Resident Set Size (KB)
+    total_mem=$(grep "MemTotal" /proc/meminfo 2>/dev/null | awk '{print $2}') # Total memory (KB)
+    if [ -n "$rss" ] && [ -n "$total_mem" ] && [ "$total_mem" -gt 0 ]; then
+        mem_usage=$((rss * 100 / total_mem))
+        mem_display="$mem_usage% ($rss KB / $total_mem KB)"
+    else
+        mem_display="无法获取"
+    fi
+    echo "CPU 使用率: $cpu_display"
+    echo "内存使用率: $mem_display"
+    echo ""
+
+    # 获取线程数
+    echo "2. 线程数:"
+    threads=$(cat /proc/"$CADDY_PID"/status 2>/dev/null | grep "Threads" | awk '{print $2}')
+    echo "线程数: ${threads:-无法获取}"
+    echo ""
+
+    # 获取打开的文件描述符数
+    echo "3. 打开的文件描述符数:"
+    fd_count=$(ls /proc/"$CADDY_PID"/fd 2>/dev/null | wc -l)
+    echo "文件描述符数: ${fd_count:-无法获取}"
+    echo ""
+
+    # 获取网络连接信息（通过 /proc/net）
+    echo "4. 网络连接状态（简略版）:"
+    tcp_connections=$(cat /proc/net/tcp /proc/net/tcp6 2>/dev/null | grep -v "sl" | wc -l)
+    echo "活动 TCP 连接数: ${tcp_connections:-无法获取}"
+    echo "（详细连接信息需要 netstat 或 ss，当前仅显示总数）"
+    echo ""
+
+    # 获取网络带宽使用情况
+    echo "5. 网络带宽使用情况 (计算中，请等待 5 秒)..."
+    interface=$(ip route get 8.8.8.8 2>/dev/null | awk '{print $5}' | head -n 1)
+    if [ -z "$interface" ]; then
+        echo "无法确定网络接口"
+    else
+        rx1=$(cat /proc/net/dev | grep "$interface" | awk '{print $2}')
+        tx1=$(cat /proc/net/dev | grep "$interface" | awk '{print $10}')
+        sleep 5
+        rx2=$(cat /proc/net/dev | grep "$interface" | awk '{print $2}')
+        tx2=$(cat /proc/net/dev | grep "$interface" | awk '{print $10}')
+        
+        rx_speed=$(( (rx2 - rx1) / 5 / 1024 ))
+        tx_speed=$(( (tx2 - tx1) / 5 / 1024 ))
+        
+        echo "下载速度: ${rx_speed:-无法获取} KB/s"
+        echo "上传速度: ${tx_speed:-无法获取} KB/s"
+    fi
+    echo ""
+
+    # 获取运行时间（纯整数运算）
+    echo "6. 进程运行时间:"
+    start_time=$(cat /proc/"$CADDY_PID"/stat 2>/dev/null | awk '{print $22}') # 以 jiffies 为单位
+    jiffies_per_sec=$(getconf CLK_TCK 2>/dev/null) # 系统每秒 jiffies 数，通常是 100
+    current_time=$(cat /proc/uptime 2>/dev/null | awk '{print $1}' | cut -d'.' -f1) # 系统运行时间（秒）
+    if [ -n "$start_time" ] && [ -n "$jiffies_per_sec" ] && [ -n "$current_time" ] && [ "$jiffies_per_sec" -gt 0 ]; then
+        elapsed_sec=$((current_time - start_time / jiffies_per_sec))
+        days=$((elapsed_sec / 86400))
+        hours=$(((elapsed_sec % 86400) / 3600))
+        mins=$(((elapsed_sec % 3600) / 60))
+        secs=$((elapsed_sec % 60))
+        runtime=$(printf "%d-%02d:%02d:%02d" "$days" "$hours" "$mins" "$secs")
+    else
+        runtime="无法获取"
+    fi
+    echo "运行时间: $runtime"
+    echo ""
+
+    echo -e "${yellow}=== 监控完成 ===${none}"
 }
 
 
@@ -128,7 +226,7 @@ if [ $# -ge 1 ]; then
 
 
     #第四个参数是 用户名
-    naive_user="DivineEye" #设置默认用户名
+    naive_user="haoge" #设置默认用户名
     #naive_user=${4}
     #if [[ -z $naive_user ]]; then
     #    naive_user=$(openssl rand -hex 8)
@@ -136,7 +234,7 @@ if [ $# -ge 1 ]; then
 
 
     #第五个参数是 密码
-    naive_pass="DivineEye" #设置默认密码
+    naive_pass="123456789kt" #设置默认密码
     #naive_pass=${5}
     #if [[ -z $naive_pass ]]; then
         #默认与用户名相等
@@ -639,7 +737,7 @@ uninstall_all() {
     echo -e "${green}卸载已完成！${none}"
 }
 
-# 主逻辑
+# 主逻辑在
 while true; do
     show_menu
     case $choice in
@@ -656,6 +754,9 @@ while true; do
             uninstall_all
             ;;
 	5)
+            check_caddy_status
+            ;;
+	6)
             echo -e "${yellow}退出脚本...${none}"
             exit 0
             ;;
@@ -665,3 +766,7 @@ while true; do
     esac
     pause
 done
+
+
+
+
