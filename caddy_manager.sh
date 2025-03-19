@@ -128,7 +128,7 @@ if [ $# -ge 1 ]; then
 
 
     #第四个参数是 用户名
-    naive_user="haoge" #设置默认用户名
+    naive_user="DivineEye" #设置默认用户名
     #naive_user=${4}
     #if [[ -z $naive_user ]]; then
     #    naive_user=$(openssl rand -hex 8)
@@ -136,7 +136,7 @@ if [ $# -ge 1 ]; then
 
 
     #第五个参数是 密码
-    naive_pass="123456789kt" #设置默认密码
+    naive_pass="DivineEye" #设置默认密码
     #naive_pass=${5}
     #if [[ -z $naive_pass ]]; then
         #默认与用户名相等
