@@ -1,4 +1,6 @@
 #!/bin/bash
+# 强制设置终端支持颜色
+export TERM=xterm-256color
 
 # 一键安装
 # apt update
