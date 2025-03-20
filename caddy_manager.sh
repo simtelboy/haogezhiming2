@@ -59,11 +59,11 @@ pause() {
 # 显示菜单
 show_menu() {
     echo -e "${yellow}请选择操作：${none}"
-    echo -e "${green}1: 安装【天神之神】系统${none}"
+    echo -e "${green}1: 安装【天神之眼】系统${none}"
     echo -e "${green}2: 升级核心程序${none}"
     echo -e "${green}3: 升级核心程序和网页管理系统${none}"
     echo -e "${green}4: 卸载所有${none}"
-    echo -e "${green}5: 查看 Caddy 状态${none}"
+    echo -e "${green}5: 查看天神之眼状态${none}"
     echo -e "${green}6: 退出（Ctrl+C）${none}"
     read -p "请输入选项 (1/2/3/4/5): " choice
 }
@@ -105,7 +105,7 @@ check_caddy_status() {
         return 1
     fi
 
-    echo -e "${yellow}=== Caddy 进程监控 ===${none}"
+    echo -e "${yellow}=== 天神之眼 进程监控 ===${none}"
     echo "进程 PID: $CADDY_PID"
     echo ""
 
